@@ -1,4 +1,5 @@
 import AlertModal from './components/AlertModal';
+import RegistrationLayout from './layouts/Registration.layout';
 
 function App() {
   const handleCancel = () => {
@@ -15,7 +16,7 @@ function App() {
           title: 'Puto el que lo lea',
           onCancel: handleCancel,
           onConfirm: handleConfirm,
-          layout: <div>AY QUE GEI</div>,
+          layout: <RegistrationLayout url="30" defaultRole='Client'/>,
         }}
         labels={{
           confirm: 'Confirmar',
