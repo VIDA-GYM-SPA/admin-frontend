@@ -1,11 +1,9 @@
-import React from 'react'
-
 interface ILogin {
   email: string;
   password: string;
 }
 
-function Login() {
+function Login({}: ILogin) {
   return (
     <div>Login</div>
   )

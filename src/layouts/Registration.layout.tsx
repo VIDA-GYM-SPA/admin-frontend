@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
-import { Button, Group, TextInput, NumberInput, Box, Select } from '@mantine/core';
+import { useForm, isEmail, hasLength, matches } from '@mantine/form';
+import { Button, Group, TextInput, Box, Select } from '@mantine/core';
 
 interface IRegistration {
   url: string;
   defaultRole: 'Employee' | 'Client';
 }
 
-function RegistrationLayout({ url, defaultRole }: IRegistration) {
+function RegistrationLayout({ defaultRole }: IRegistration) {
   const form = useForm({
     initialValues: {
       name: '',
