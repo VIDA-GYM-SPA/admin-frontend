@@ -136,15 +136,6 @@ const mainLinksMockdata = [
   { icon: IconSettings, label: 'Configuraciones' },
 ];
 
-const linksMockdata = [
-  'Dashboard',
-  'Estadisticas', 
-  'Reportes',
-  'Cuenta',
-  'Seguridad',
-  'Configuraciones',
-];
-
 export default function Nav() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState('Dashboard');
@@ -172,17 +163,17 @@ export default function Nav() {
     sidebar.setSidebar(!sidebar.active, sidebar.width === 0 ? 300 : 0);
   };
 
-  const links = linksMockdata.map((link) => (
+  const links = mainLinksMockdata.map((link) => (
     <a
-      className={cx(classes.link, { [classes.linkActive]: active === link })}
+      className={cx(classes.link, { [classes.linkActive]: active === link.label })}
       href="/"
       onClick={(event) => {
         event.preventDefault();
-        setActive(link);
+        setActive(link.label);
       }}
-      key={link}
+      key={link.label}
     >
-      {link}
+      {link.label}
     </a>
   ));
 
