@@ -138,7 +138,7 @@ const mainLinksMockdata = [
 
 const linksMockdata = [
   'Dashboard',
-  'Estadisticas',
+  'Estadisticas', 
   'Reportes',
   'Cuenta',
   'Seguridad',
@@ -148,7 +148,6 @@ const linksMockdata = [
 export default function Nav() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState('Dashboard');
-  const [activeLink, setActiveLink] = useState('Dashboard');
 
   const sidebar = useSidebar();
 
@@ -175,11 +174,11 @@ export default function Nav() {
 
   const links = linksMockdata.map((link) => (
     <a
-      className={cx(classes.link, { [classes.linkActive]: activeLink === link })}
+      className={cx(classes.link, { [classes.linkActive]: active === link })}
       href="/"
       onClick={(event) => {
         event.preventDefault();
-        setActiveLink(link);
+        setActive(link);
       }}
       key={link}
     >
@@ -210,7 +209,7 @@ export default function Nav() {
           >
             <UnstyledButton
               onClick={() => handleSidebar()}
-              className={cx(classes.mainLink, { [classes.mainLinkActive]: activeLink === active })}
+              className={cx(classes.mainLink, { [classes.mainLinkActive]: active === active })}
               mt="auto"
             >
               <IconChevronLeft 
