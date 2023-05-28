@@ -3,9 +3,7 @@ import Nav from "../components/Navbar"
 import { useSidebar } from "../hooks/useSidebar"
 import { IconUser, IconUserOff, IconUsers } from "@tabler/icons-react"
 
-type Props = {}
-
-function Dashboard({}: Props) {
+function Dashboard() {
   const theme = useMantineTheme()
   const sidebar = useSidebar()
 
@@ -71,12 +69,17 @@ function Dashboard({}: Props) {
           </Grid>
           <Card mt={15} h="300px" shadow="sm" padding="md" radius="sm" bg={theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[4]}>
           <RingProgress
-            size={250}
-            thickness={15}
+            size={270}
+            thickness={20}
             roundCaps
+            label={
+              <Text size="xl" ta="center" weight={400}>
+                Clientes
+              </Text>
+            }
             sections={[
-              { value: 88, color: '#68b5e8' },
-              { value: 12, color: '#8468e8' },
+              { value: 88, color: '#68b5e8', tooltip: 'Clientes activos | 88%' },
+              { value: 12, color: '#8468e8', tooltip: 'Clientes inactivos | 12%' },
             ]}
           />
           </Card>
