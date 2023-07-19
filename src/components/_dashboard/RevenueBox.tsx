@@ -12,7 +12,7 @@ function RevenueBox() {
   const [controlSelected, setControlSelected] = useState('mensuales')
   const { classes } = useStyles()
   return (
-    <Card h='100%' withBorder shadow='sm'>
+    <Card h='100%' withBorder shadow='sm' radius="md">
       <Group position='apart' mt={-10}>
       <Text className={classes.title}>
         Ingresos

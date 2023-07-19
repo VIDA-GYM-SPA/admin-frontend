@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react'
 
 export type MapOrEntries<K, V> = Map<K, V> | [K, V][]
 
-// Public interface
 export interface Actions<K, V> {
   set: (key: K, value: V) => void
   setAll: (entries: MapOrEntries<K, V>) => void
@@ -10,10 +9,9 @@ export interface Actions<K, V> {
   reset: Map<K, V>['clear']
 }
 
-// We hide some setters from the returned map to disable autocompletion
 type Return<K, V> = [Omit<Map<K, V>, 'set' | 'clear' | 'delete'>, Actions<K, V>]
 
-function useMap<K, V>(
+export function useMap<K, V>(
   initialState: MapOrEntries<K, V> = new Map(),
 ): Return<K, V> {
   const [map, setMap] = useState(new Map(initialState))
@@ -46,5 +44,3 @@ function useMap<K, V>(
 
   return [map, actions]
 }
-
-export default useMap

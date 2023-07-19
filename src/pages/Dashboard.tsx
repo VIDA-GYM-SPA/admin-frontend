@@ -62,7 +62,7 @@ function Dashboard() {
         </div>
       </Group>
       <div style={{ width: '100%', height: '432px' }}>
-        <Card h='100%' withBorder shadow='sm' mt={12} bg={theme.white}>
+        <Card h='100%' withBorder shadow='md' mt={12} bg={theme.white} radius="md">
           <Group>
           </Group>
         </Card>

@@ -2063,6 +2063,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/history@^4.7.11":
+  version "4.7.11"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.11.tgz#56588b17ae8f50c53983a524fc3cc47437969d64"
+  integrity sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==
+
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
@@ -2090,10 +2095,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^29.5.1":
-  version "29.5.1"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.5.1.tgz#83c818aa9a87da27d6da85d3378e5a34d2f31a47"
-  integrity sha512-tEuVcHrpaixS36w7hpsfLBLpjtMRJUE09/MHXn923LOVojDwyC14cWcfc0rDs0VEfUyYmt/+iX1kxxp+gZMcaQ==
+"@types/jest@^29.5.3":
+  version "29.5.3"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.5.3.tgz#7a35dc0044ffb8b56325c6802a4781a626b05777"
+  integrity sha512-1Nq7YrO/vJE/FYnqYyw0FS8LdrjExSgIiHyKg7xPpn+yi8Q4huZryKnkJatN1ZRH89Kw2v33/8ZMB7DuZeSLlA==
   dependencies:
     expect "^29.0.0"
     pretty-format "^29.0.0"
@@ -2123,11 +2128,35 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
+"@types/react-detect-offline@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@types/react-detect-offline/-/react-detect-offline-2.4.1.tgz#5a71625d3614a56a6c3dacc53c5e9baed0610de0"
+  integrity sha512-ympSl07fvDbu7+EsnhrKwDWkdOqHp22lukhJYIHxnTfSIzOh1T/K9NGmpwKUtgJaNCfllwLvMSXBlyC6nHEObw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^18.0.11":
   version "18.2.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.4.tgz#13f25bfbf4e404d26f62ac6e406591451acba9e0"
   integrity sha512-G2mHoTMTL4yoydITgOGwWdWMVd8sNgyEP85xVmMKAPUBwQWm9wBPQUmvbeF4V3WBY1P7mmL4BkjQ0SqUpf1snw==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-router-dom@5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.3.3.tgz#e9d6b4a66fcdbd651a5f106c2656a30088cc1e83"
+  integrity sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "5.1.20"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.20.tgz#88eccaa122a82405ef3efbcaaa5dcdd9f021387c"
+  integrity sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==
+  dependencies:
+    "@types/history" "^4.7.11"
     "@types/react" "*"
 
 "@types/react-test-renderer@^18.0.0":
@@ -2261,6 +2290,11 @@
   dependencies:
     "@typescript-eslint/types" "5.59.5"
     eslint-visitor-keys "^3.3.0"
+
+"@uidotdev/usehooks@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@uidotdev/usehooks/-/usehooks-2.0.1.tgz#ed76a6d2ea4fe008a1d732a45489025fa2a4c586"
+  integrity sha512-rJXxE3Y8g9utRbOS9Pj9tIvrnOdaakHIhLbMxBlErV8HydnGD0DveD82aLBfVTh1hBp5IXqpeHpMrPE9WIT7vQ==
 
 "@vitejs/plugin-react-swc@^3.0.0":
   version "3.3.1"
@@ -4194,6 +4228,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+react-detect-offline@^2.4.5:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/react-detect-offline/-/react-detect-offline-2.4.5.tgz#3c242516c37b6789cf89102881031f87e70b80e6"
+  integrity sha512-sI13NPEKl3uQp95FT5CwrYzH3DnXCwNP6TnY6NRF5gFDM4NU9KDlbtA6HG2dwhDVS0RYQGXwZW/mHbdf8fCnaw==
+
 react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
@@ -4227,6 +4266,11 @@ react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-network-detect@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-network-detect/-/react-network-detect-1.0.11.tgz#e33c4cc35c07ec8b29d64233b832505862e84129"
+  integrity sha512-IMb80wAlWy0jLhfl6dFskdEqrYlDsAYZr8TWk3ok5H21LNYbfpjsIBPnfa1Fi1Wt6YK+Ozabp+ZTaiaKVSBPUA==
 
 react-redux@^8.0.5:
   version "8.0.5"
