@@ -7,14 +7,7 @@ import {
   Text,
   Title
 } from '@mantine/core'
-
-interface IGridConfig {
-  xs?: number;
-  sm?: number;
-  md?: number;
-  lg?: number;
-  span?: number;
-}
+import { ISizes } from '../interfaces';
 
 interface IData {
   title: string;
@@ -25,20 +18,20 @@ interface IData {
 }
 
 interface IStatusCards {
-  grid: IGridConfig;
+  grid: ISizes;
   data: IData[];
 }
 
 function StatusCards({grid, data}: IStatusCards) {
   return (
     <>
-      <Grid mb={5}>
+      <Grid mb={5} grow>
         {
-          data.map((item, index) => (
-            <Grid.Col {...grid} key={index}>
-              <Card shadow="sm" padding="md" radius="sm" withBorder>
-                <Group position="left">
-                  <Avatar radius="md" h="50px" w="50px" color={item.color}>
+          data.map((item) => (
+            <Grid.Col {...grid} key={item.title}>
+              <Card shadow='sm' padding='md' radius='sm' withBorder>
+                <Group position='left'>
+                  <Avatar radius='md' h='50px' w='50px' color={item.color}>
                     {item.icon}
                   </Avatar>
                   <Title order={3}>

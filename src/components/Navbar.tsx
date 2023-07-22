@@ -145,7 +145,7 @@ export default function Nav() {
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
       label={link.label}
-      position="right"
+      position='right'
       withArrow
       transitionProps={{ duration: 0 }}
       key={link.label}
@@ -154,7 +154,7 @@ export default function Nav() {
         onClick={() => setActive(link.label)}
         className={cx(classes.mainLink, { [classes.mainLinkActive]: link.label === active })}
       >
-        <link.icon size="1.4rem" stroke={1.5} />
+        <link.icon size='1.4rem' stroke={1.5} />
       </UnstyledButton>
     </Tooltip>
   ));
@@ -166,7 +166,7 @@ export default function Nav() {
   const links = mainLinksMockdata.map((link) => (
     <a
       className={cx(classes.link, { [classes.linkActive]: active === link.label })}
-      href="/"
+      href='/'
       onClick={(event) => {
         event.preventDefault();
         setActive(link.label);
@@ -186,25 +186,25 @@ export default function Nav() {
               mt={-8}
               color='light'
               size={45}
-              radius="md"
+              radius='md'
             >
-              <IconUser size="1.4rem" stroke={1.9} />
+              <IconUser size='1.4rem' stroke={1.9} />
             </Avatar>
           </div>
           {mainLinks}
           <Tooltip
             label={sidebar.active ? 'Cerrar panel' : 'Abrir panel'}
-            position="right"
+            position='right'
             withArrow
             transitionProps={{ duration: 0 }}
           >
             <UnstyledButton
               onClick={() => handleSidebar()}
               className={cx(classes.mainLink, { [classes.mainLinkActive]: active === active })}
-              mt="auto"
+              mt='auto'
             >
               <IconChevronLeft 
-                size="1.4rem" 
+                size='1.4rem' 
                 stroke={1.5} 
                 style={{
                   transition: 'transform 350ms ease',

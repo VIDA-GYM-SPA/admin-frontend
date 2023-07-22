@@ -50,8 +50,8 @@ function Dashboard() {
       <StatusCards
         grid={{
           xs: 12,
-          md: 4,
-          lg: 4
+          lg: 6,
+          xl: 4
         }}
         data={dataStatusCard}
       />
@@ -64,6 +64,7 @@ function Dashboard() {
       <div style={{ width: '100%', height: '432px' }}>
         <Card h='100%' withBorder shadow='md' mt={12} bg={theme.white} radius="md">
           <Group>
+
           </Group>
         </Card>
       </div>

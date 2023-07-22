@@ -66,22 +66,22 @@ export default function CardBox() {
 
   const items = mockdata.map((item) => (
     <UnstyledButton key={item.title} className={classes.item}>
-      <item.icon color={theme.colors[item.color][6]} size="2rem" radius="xl" />
-      <Text size="xs" mt={7}>
+      <item.icon color={theme.colors[item.color][6]} size='2rem' radius='xl' />
+      <Text size='xs' mt={7}>
         {item.title}
       </Text>
     </UnstyledButton>
   ));
 
   return (
-    <Card withBorder radius="md" className={classes.card} w={400} shadow="sm">
-      <Group position="apart">
+    <Card withBorder radius='md' className={classes.card} w={400} shadow='sm'>
+      <Group position='apart'>
         <Text className={classes.title}>Servicios</Text>
-        {/* <Anchor size="xs" color="dimmed" sx={{ lineHeight: 1 }}>
+        {/* <Anchor size='xs' color='dimmed' sx={{ lineHeight: 1 }}>
           + 21 other services
         </Anchor> */}
       </Group>
-      <SimpleGrid cols={3} mt="md">
+      <SimpleGrid cols={3} mt='md'>
         {items}
       </SimpleGrid>
     </Card>

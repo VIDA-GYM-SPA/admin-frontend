@@ -1,5 +1,5 @@
-import CardBox from "./CardBox";
-import RevenueBox from "./RevenueBox";
+import CardBox from './CardBox';
+import RevenueBox from './RevenueBox';
 
 export {
   CardBox as Services,

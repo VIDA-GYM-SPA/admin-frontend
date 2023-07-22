@@ -1,4 +1,5 @@
-import { useEffect, useReducer, useRef } from 'react'
+import { useReducer, useRef } from 'react'
+import { useBetterEffect } from './useBetterEffect'
 
 interface State<T> {
   data?: T
@@ -40,7 +41,7 @@ export function useFetch<T = unknown>(
 
   const [state, dispatch] = useReducer(fetchReducer, initialState)
 
-  useEffect(() => {
+  useBetterEffect(() => {
     if (!url) return
 
     cancelRequest.current = false

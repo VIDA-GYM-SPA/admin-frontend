@@ -16,3 +16,13 @@ export interface ISession {
 }
 
 export interface IUserAuthSession extends IUser, IAuth, ISession {}
+
+
+export interface ISizes {
+  xs?: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  span?: number;
+}

@@ -1,6 +1,6 @@
-import { Card, Title, Text, TextInput, PasswordInput, Button } from "@mantine/core";
-import ConnectionAlert from "../components/ConnectionAlert";
-import { useEffect } from "react";
+import { Card, Title, Text, TextInput, PasswordInput, Button } from '@mantine/core'
+import ConnectionAlert from '../components/ConnectionAlert'
+import { useEffect } from 'react'
 
 interface ILogin {
   email: string;
@@ -15,26 +15,26 @@ function Login({}: ILogin) {
 
   return (
     <>
-      <div className="login" 
+      <div className='login' 
         style={{ 
           margin: -16, 
-          background: "url(/vidagymspa.webp)", 
-          width: "100vw", 
-          height: "100vh", 
-          display: "flex", 
-          objectFit: "cover",
-          backgroundPosition: "center center",
-          justifyContent: "center", 
-          alignItems: "center", 
-          backgroundSize: "100% 100%", 
-          backgroundRepeat: "no-repeat", 
-          aspectRatio: "1/1"
+          background: 'url(/vidagymspa.webp)', 
+          width: '100vw', 
+          height: '100vh', 
+          display: 'flex', 
+          objectFit: 'cover',
+          backgroundPosition: 'center center',
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          backgroundSize: '100% 100%', 
+          backgroundRepeat: 'no-repeat', 
+          aspectRatio: '1/1'
         }}
       >
         <Card
           withBorder
-          shadow="md"
-          padding="xl"
+          shadow='md'
+          padding='xl'
           style={{
             minWidth: 400,
             maxWidth: 500
@@ -43,11 +43,11 @@ function Login({}: ILogin) {
           <Title
             order={2}
             fw={300}
-            ta="center"
+            ta='center'
           >
             Vida Gym Spa
             <Text
-              ta="center"
+              ta='center'
               fw={300}
               size={20}
             >
@@ -56,16 +56,16 @@ function Login({}: ILogin) {
           </Title>
           <TextInput 
             mt={40}
-            label="Correo"
-            placeholder="micorreo@vidagym.com"
+            label='Correo'
+            placeholder='micorreo@vidagym.com'
           />
           <PasswordInput
-            label="Contraseña"
-            placeholder="********"
+            label='Contraseña'
+            placeholder='********'
           />
           <Button 
             mt={20}
-            w="100%"
+            w='100%'
           >
             Login
           </Button>

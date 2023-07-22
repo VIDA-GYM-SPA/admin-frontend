@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { createStyles, Text, Group, SegmentedControl, Card, RingProgress, Title } from "@mantine/core";
+import { useState } from 'react';
+import { createStyles, Text, Group, SegmentedControl, Card, RingProgress, Title } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -12,13 +12,13 @@ function RevenueBox() {
   const [controlSelected, setControlSelected] = useState('mensuales')
   const { classes } = useStyles()
   return (
-    <Card h='100%' withBorder shadow='sm' radius="md">
+    <Card h='100%' withBorder shadow='sm' radius='md'>
       <Group position='apart' mt={-10}>
       <Text className={classes.title}>
         Ingresos
       </Text>
         <SegmentedControl
-          size="md"
+          size='md'
           mr={-10}
           onChange={(e: string) => {
             if (e === 'month') {
@@ -43,7 +43,7 @@ function RevenueBox() {
           roundCaps
           mt={10}
           label={
-            <Text size="sm" align="center">
+            <Text size='sm' align='center'>
               Ingresos { controlSelected }
             </Text>
           }

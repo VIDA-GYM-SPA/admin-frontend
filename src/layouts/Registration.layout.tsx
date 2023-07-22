@@ -23,25 +23,25 @@ function RegistrationLayout({ defaultRole }: IRegistration) {
   })
 
   return (
-    <Box component="form" onSubmit={form.onSubmit(() => {
+    <Box component='form' onSubmit={form.onSubmit(() => {
       alert(JSON.stringify(form.values, null, 2))
     })}>
       <Group>
         <TextInput
-          label="Name"
+          label='Name'
           placeholder='Javier Diaz'
           withAsterisk
           {...form.getInputProps('name')}
         />
         <TextInput
-          label="Email"
+          label='Email'
           placeholder='javierdiaz@vida.com'
           withAsterisk
           {...form.getInputProps('email')}
         />
       </Group>
         <Select
-          label="Role"
+          label='Role'
           placeholder='Select a role'
           withAsterisk
           w='100%'
@@ -52,13 +52,13 @@ function RegistrationLayout({ defaultRole }: IRegistration) {
           ]}
         />
         <TextInput
-          label="Password"
+          label='Password'
           placeholder='********'
           w='100%'
           withAsterisk
           {...form.getInputProps('password')}
         />
-        <Button type="submit">Submit</Button>
+        <Button type='submit'>Submit</Button>
     </Box>
   )
 }

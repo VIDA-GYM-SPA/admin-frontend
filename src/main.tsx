@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import { MantineProvider as Mantine } from '@mantine/core';
-import { ModalsProvider as Modals } from '@mantine/modals';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+import { MantineProvider as Mantine } from '@mantine/core'
+import { ModalsProvider as Modals } from '@mantine/modals'
 import { store } from './config/store'
-import { Provider as GlobalStates } from 'react-redux';
+import { Provider as GlobalStates } from 'react-redux'
 import './index.css'
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Dashboard from './pages/Dashboard.tsx';
-import Login from './pages/Login.tsx';
-import ConnectionAlert from './components/ConnectionAlert.tsx';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import Dashboard from './pages/Dashboard.tsx'
+import Login from './pages/Login.tsx'
+import Security from './pages/Security.tsx'
+// import ConnectionAlert from './components/ConnectionAlert.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -20,10 +21,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <App>
               <Switch>
                 <Route path="/login" component={Login} />
-                <Route path="/" component={Dashboard} />
+                <Route path="/security" component={Security} />
+                <Route path="/" component={Dashboard} exact/>
               </Switch>
             </App>
-            <ConnectionAlert />
+            {/* <ConnectionAlert /> */}
           </Modals>
         </Router>
       </Mantine>
