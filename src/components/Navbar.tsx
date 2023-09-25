@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createStyles, Navbar, UnstyledButton, Tooltip, Title, rem, Avatar } from '@mantine/core';
 import {
   IconGauge,
@@ -24,16 +24,15 @@ const useStyles = createStyles((theme) => ({
   wrapper: {
     display: 'flex',
   },
-  
+
   aside: {
     flex: `0 0 ${rem(60)}`,
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderRight: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
-    }`,
+    borderRight: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
+      }`,
   },
 
   main: {
@@ -70,9 +69,8 @@ const useStyles = createStyles((theme) => ({
     padding: theme.spacing.md,
     paddingTop: rem(18),
     height: rem(60),
-    borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
-    }`,
+    borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
+      }`,
   },
 
   logo: {
@@ -80,9 +78,8 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     height: rem(60),
     paddingTop: theme.spacing.md,
-    borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
-    }`,
+    borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
+      }`,
     marginBottom: theme.spacing.xl,
   },
 
@@ -148,8 +145,14 @@ const mainLinksMockdata: ILink[] = [
 export default function Nav() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState(window.location.pathname);
-
+  const [sidebarOpen, setSidebarOpen] = useState(
+    localStorage.getItem('sidebarOpen') === 'true' || false
+  );
   const sidebar = useSidebar();
+  useEffect(() => {
+    
+    localStorage.setItem('sidebarOpen', sidebarOpen.toString());
+  }, [sidebarOpen]);
 
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
@@ -159,25 +162,33 @@ export default function Nav() {
       transitionProps={{ duration: 0 }}
       key={link.label}
     >
-      <UnstyledButton
-        onClick={() => setActive(link.link)}
-        className={cx(classes.mainLink, { [classes.mainLinkActive]: link.label === active })}
-      >
-        <link.icon size='1.4rem' stroke={1.5} />
-      </UnstyledButton>
+      <Link to={link.link} className={cx(classes.mainLink, { [classes.mainLinkActive]: active === link.link })}>
+        <UnstyledButton
+          onClick={() => setActive(link.link)}
+          className={cx(classes.mainLink, { [classes.mainLinkActive]: active === link.link })} 
+        >
+          <link.icon size='1.4rem' stroke={1.5} />
+        </UnstyledButton>
+      </Link>
     </Tooltip>
   ));
 
   const handleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
     sidebar.setSidebar(!sidebar.active, sidebar.width === 0 ? 300 : 0);
   };
+  useEffect(() => {
+    const storedSidebarOpen = localStorage.getItem('sidebarOpen') === 'true';
+    setSidebarOpen(storedSidebarOpen);
+    sidebar.setSidebar(storedSidebarOpen, storedSidebarOpen ? 300 : 0);
+  }, [sidebar, setSidebarOpen]);
 
   const links = mainLinksMockdata.map((link) => (
     <Link
-      className={cx(classes.link, { [classes.linkActive]: active === link.label })}
+      className={cx(classes.link, { [classes.linkActive]: active === link.link })}
       to={link.link}
       onClick={() => {
-        setActive(link.label);
+        setActive(link.link);
       }}
       key={link.label}
     >
@@ -195,7 +206,6 @@ export default function Nav() {
               color='light'
               size={45}
               radius='md'
-              // src="https://avatars.githubusercontent.com/u/70349374?v=4"
             >
               <IconUser size='1.4rem' stroke={1.9} />
             </Avatar>
@@ -212,9 +222,9 @@ export default function Nav() {
               className={cx(classes.mainLink, { [classes.mainLinkActive]: active === active })}
               mt='auto'
             >
-              <IconChevronLeft 
-                size='1.4rem' 
-                stroke={1.5} 
+              <IconChevronLeft
+                size='1.4rem'
+                stroke={1.5}
                 style={{
                   transition: 'transform 350ms ease',
                   transform: sidebar.active ? 'rotate(180deg)' : 'rotate(0deg)',
