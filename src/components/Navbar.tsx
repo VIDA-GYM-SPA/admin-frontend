@@ -10,6 +10,15 @@ import {
   IconChevronLeft
 } from '@tabler/icons-react';
 import { useSidebar } from '../hooks/useSidebar';
+import { Link } from 'react-router-dom';
+import where from '../helpers/where';
+import first from '../helpers/first';
+
+interface ILink {
+  icon: any;
+  label: string;
+  link: string;
+}
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -127,18 +136,18 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mainLinksMockdata = [
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Estadisticas' },
-  { icon: IconCalendarStats, label: 'Reportes' },
-  { icon: IconUser, label: 'Cuenta' },
-  { icon: IconFingerprint, label: 'Seguridad' },
-  { icon: IconSettings, label: 'Configuraciones' },
+const mainLinksMockdata: ILink[] = [
+  { icon: IconGauge, label: 'Dashboard', link: '/' },
+  { icon: IconDeviceDesktopAnalytics, label: 'Estadisticas', link: '/statics' },
+  { icon: IconCalendarStats, label: 'Reportes', link: '/reports' },
+  { icon: IconUser, label: 'Mi cuenta', link: '/my-account' },
+  { icon: IconFingerprint, label: 'Seguridad', link: '/security' },
+  { icon: IconSettings, label: 'Configuraciones', link: '/settings' },
 ];
 
 export default function Nav() {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState('Dashboard');
+  const [active, setActive] = useState(window.location.pathname);
 
   const sidebar = useSidebar();
 
@@ -151,7 +160,7 @@ export default function Nav() {
       key={link.label}
     >
       <UnstyledButton
-        onClick={() => setActive(link.label)}
+        onClick={() => setActive(link.link)}
         className={cx(classes.mainLink, { [classes.mainLinkActive]: link.label === active })}
       >
         <link.icon size='1.4rem' stroke={1.5} />
@@ -164,17 +173,16 @@ export default function Nav() {
   };
 
   const links = mainLinksMockdata.map((link) => (
-    <a
+    <Link
       className={cx(classes.link, { [classes.linkActive]: active === link.label })}
-      href='/'
-      onClick={(event) => {
-        event.preventDefault();
+      to={link.link}
+      onClick={() => {
         setActive(link.label);
       }}
       key={link.label}
     >
       {link.label}
-    </a>
+    </Link>
   ));
 
   return (
@@ -187,6 +195,7 @@ export default function Nav() {
               color='light'
               size={45}
               radius='md'
+              // src="https://avatars.githubusercontent.com/u/70349374?v=4"
             >
               <IconUser size='1.4rem' stroke={1.9} />
             </Avatar>
@@ -218,7 +227,7 @@ export default function Nav() {
           sidebar.active && (
             <div className={classes.main}>
               <Title order={4} className={classes.title}>
-                {active}
+                {first(where(mainLinksMockdata, ((link: ILink) => link.link == window.location.pathname))).label}
               </Title>
               {links}
             </div>

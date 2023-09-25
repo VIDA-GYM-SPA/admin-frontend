@@ -3,7 +3,7 @@ import { Button, Group, TextInput, Box, Select } from '@mantine/core';
 
 interface IRegistration {
   url: string;
-  defaultRole: 'Employee' | 'Client';
+  defaultRole: 'Employer' | 'Client';
 }
 
 function RegistrationLayout({ defaultRole }: IRegistration) {
@@ -29,20 +29,20 @@ function RegistrationLayout({ defaultRole }: IRegistration) {
       <Group>
         <TextInput
           label='Name'
-          placeholder='Javier Diaz'
+          placeholder='Evanan Semprun'
           withAsterisk
           {...form.getInputProps('name')}
         />
         <TextInput
           label='Email'
-          placeholder='javierdiaz@vida.com'
+          placeholder='evanan@vida.com'
           withAsterisk
           {...form.getInputProps('email')}
         />
       </Group>
         <Select
           label='Role'
-          placeholder='Select a role'
+          placeholder='Seleccione un rol'
           withAsterisk
           w='100%'
           {...form.getInputProps('role')}

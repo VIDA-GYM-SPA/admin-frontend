@@ -10,7 +10,8 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import Dashboard from './pages/Dashboard.tsx'
 import Login from './pages/Login.tsx'
 import Security from './pages/Security.tsx'
-// import ConnectionAlert from './components/ConnectionAlert.tsx'
+import Accounts from './pages/Accounts.tsx'
+import ConnectionAlert from './components/ConnectionAlert.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -22,10 +23,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/security" component={Security} />
-                <Route path="/" component={Dashboard} exact/>
+                <Route path="/accounts" component={Accounts} />
+                <Route path="/" component={Dashboard} exact />
               </Switch>
             </App>
-            {/* <ConnectionAlert /> */}
+            <ConnectionAlert />
           </Modals>
         </Router>
       </Mantine>

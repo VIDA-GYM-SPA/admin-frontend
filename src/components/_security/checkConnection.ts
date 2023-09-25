@@ -6,7 +6,9 @@ interface IFetch {
 }
 
 export default function checkConnection({ url, port }: IFetch) { 
-  useFetch(url + port)
+  const { error } = useFetch(url + port)
 
-  if error
-}
+  if (error) {
+    console.log(error)
+  }
+} 

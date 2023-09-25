@@ -1,11 +1,20 @@
-import { Card, Group, useMantineTheme, } from '@mantine/core'
-import StatusCards from '../components/StatusCards'
-import { Revenues, Services } from '../components/_dashboard'
+import { 
+  Card,
+  Grid,
+  useMantineTheme
+} from '@mantine/core'
+import { 
+  Revenues, 
+  Services 
+} from '../components/_dashboard'
 import {
   IconUsersGroup,
   IconUsers, 
   IconHomeShield 
 } from '@tabler/icons-react';
+import StatusCards from '../components/StatusCards'
+import { UsersTable } from '../components/usersTable';
+import tableData from '../assets/data/mockUsersTable.json'
 
 function Dashboard() {
   const theme = useMantineTheme()
@@ -46,7 +55,12 @@ function Dashboard() {
   ]
 
   return (
-    <section className='dashboard'>
+    <Card 
+      w='100%'
+      h='100%'
+      bg='transparent'
+      p={0}
+    >
       <StatusCards
         grid={{
           xs: 12,
@@ -55,20 +69,30 @@ function Dashboard() {
         }}
         data={dataStatusCard}
       />
-      <Group noWrap>
-        <Services />
-        <div style={{ width: '100%', height: '375px' }}>
-          <Revenues />
-        </div>
-      </Group>
-      <div style={{ width: '100%', height: '432px' }}>
-        <Card h='100%' withBorder shadow='md' mt={12} bg={theme.white} radius="md">
-          <Group>
-
-          </Group>
-        </Card>
-      </div>
-    </section>
+      <Grid>
+        <Grid.Col xs={12} sm={12} md={4} lg={3} xl={3}>
+          <Services />
+        </Grid.Col>
+        <Grid.Col xs={12} sm={12} md={8} lg={9} xl={9}>  
+          <div style={{ width: '100%', height: '378px' }}>
+            <Revenues />
+          </div>
+        </Grid.Col>
+      </Grid>
+      <Card 
+        h='420px' 
+        shadow='md' 
+        mt={12} 
+        bg={theme.white} 
+        radius="md"
+        withBorder 
+        style={{
+          overflow: 'auto'
+        }}
+      > 
+        <UsersTable data={tableData} />
+      </Card>
+    </Card>
   )
 }
 

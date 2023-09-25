@@ -15,7 +15,8 @@ function App({ children }: IApp) {
     <>
       <AppShell
         header={ !Authorization() && localStorage.getItem('user') ? <Nav /> : <></> }
-        ml={ sidebar.width <= 0 ? !Authorization() && localStorage.getItem('user') ? 60 : 0 : 0 }
+        ml={ sidebar.width <= 0 ? !Authorization() && localStorage.getItem('user') ? 50 : 0 : '-10px' }
+        style={{ overflowX: 'hidden' }}
       >
         <>
           { children }

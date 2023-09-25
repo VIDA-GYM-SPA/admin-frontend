@@ -74,7 +74,7 @@ export default function CardBox() {
   ));
 
   return (
-    <Card withBorder radius='md' className={classes.card} w={400} shadow='sm'>
+    <Card withBorder radius='md' className={classes.card} w="100%" shadow='sm'>
       <Group position='apart'>
         <Text className={classes.title}>Servicios</Text>
         {/* <Anchor size='xs' color='dimmed' sx={{ lineHeight: 1 }}>
