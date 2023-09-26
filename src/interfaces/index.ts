@@ -4,6 +4,8 @@ export interface IUser {
   lastname: string;
   email: string;
   role: string;
+  fingerprint: Text | string | Blob | null;
+  rfid: string | null;
 }
 
 export interface IAuth {
