@@ -27,7 +27,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 <Route path="/" component={Dashboard} exact />
               </Switch>
             </App>
-            <ConnectionAlert />
           </Modals>
         </Router>
       </Mantine>

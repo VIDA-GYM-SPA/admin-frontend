@@ -25,7 +25,16 @@ function Security() {
   const elements = [
     { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Diego Urrutia' },
     { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Evanan Semprun' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Maria Rodriguez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Carlos Gomez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Laura Hernandez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Juan Perez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Ana Martinez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' },
   ];
+
 
   const rows = elements.map((element: IElement) => (
     <tr>
