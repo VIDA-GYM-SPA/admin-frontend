@@ -1,17 +1,25 @@
 import {
   Card,
   Table,
-  Group,
   Badge,
+  Group,
+  Title,
+  Breadcrumbs,
+  Anchor,
+  Input,
+  Button,
+  ActionIcon,
+  Pagination
 } from "@mantine/core"
 import {
-  IconUserExclamation,
-  IconUserCheck,
   IconCheck,
-  IconX
+  IconX,
+  IconSearch,
+  IconRepeat
 } from '@tabler/icons-react';
 import EditModal from "../components/_security/EditModal";
 import DeleteModal from "../components/_security/DeleteModal";
+import Addclient from "../components/_security/Addclient";
 
 interface IElement {
   suscripcion: number;
@@ -33,8 +41,22 @@ function Security() {
     { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez' },
     { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres' },
     { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Carlos Gomez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Laura Hernandez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Juan Perez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Ana Martinez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres' },
+    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' },
   ];
-
+  const plink = [
+    { title: 'Dashboard', href: '/' },
+    { title: 'Seguridad', href: '#' },
+  ].map((plink, index) => (
+    <Anchor href={plink.href} key={index}>
+      {plink.title}
+    </Anchor>
+  ));
 
   const rows = elements.map((element: IElement) => (
     <tr>
@@ -66,7 +88,7 @@ function Security() {
 
       <td>
         <Group position="center">
-          <EditModal data={element}/>
+          <EditModal data={element} />
           <DeleteModal />
         </Group>
       </td>
@@ -75,8 +97,6 @@ function Security() {
 
   return (
     <>
-
-
       <Card
         w='100%'
         h='100%'
@@ -84,7 +104,44 @@ function Security() {
         withBorder
       >
 
-        <Table highlightOnHover withBorder withColumnBorders ta="center">
+        <Group position="apart">
+
+          <Title italic order={2}>
+            Seguridad
+          </Title>
+          <Breadcrumbs separator=">">{plink}</Breadcrumbs>
+
+        </Group>
+
+        <Title order={3} fw={200} >
+          Seguridad de usuarios en el gimnasio y planes
+        </Title>
+        <Group position="apart">
+
+        <Group w={955}>
+          <Input
+            maw={500}
+            mt={10}
+            size="md"
+            icon={<IconSearch />}
+            placeholder="Nombre o Cedula"
+          />
+
+          <Group spacing={0} mt={10}>
+            <Button color="blue" variant="filled" size="md" style={{ borderRadius: '5px 0 0 5px'}}>Filtrar</Button>
+            <ActionIcon px={3} h={42} color="orange" variant="filled" style={{ borderRadius: '0 5px 5px 0'}}>
+              <IconRepeat />
+            </ActionIcon>
+
+          </Group>
+
+        </Group>
+<Addclient/>
+
+</Group>
+
+        <Pagination mt={15} total={10} size="md"/>
+        <Table mt={15} highlightOnHover withBorder withColumnBorders ta="center">
           <thead>
             <tr>
               <th style={{ textAlign: 'center' }}>Nombre</th>
@@ -97,6 +154,10 @@ function Security() {
           </thead>
           <tbody>{rows}</tbody>
         </Table>
+
+        <Pagination mt={15} total={10} size="md"/>
+
+
       </Card>
     </>
   )

@@ -11,7 +11,6 @@ import Dashboard from './pages/Dashboard.tsx'
 import Login from './pages/Login.tsx'
 import Security from './pages/Security.tsx'
 import Accounts from './pages/Accounts.tsx'
-import ConnectionAlert from './components/ConnectionAlert.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

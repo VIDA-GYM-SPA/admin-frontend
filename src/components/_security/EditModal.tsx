@@ -18,7 +18,6 @@ import {
   IconPencil,
   IconX,
 } from '@tabler/icons-react';
-import { useFetch } from "../../hooks/useFetch";
 
 interface IEditModal {
   data: {
@@ -32,21 +31,7 @@ interface IEditModal {
 
 function EditModal({data}: IEditModal) {
   const [opened, { open, close }] = useDisclosure(false)
-  const form = useForm({
-    initialValues: {
-      rfid: null,
-      fingerprint: null
-    }
-  })
-  // const { error, data } = useFetch(
-  //   `http://localhost:3000/api/v1/users?id=${id}`,
-  //   {
-  //     headers: {
-  //       ContentType: 'application/json',
-  //       Authorization: `Bearer KAMEHAMEHA`
-  //     }
-  //   }
-  // )
+
 
   const parsedName = (str: string) => {
     return str[0] + str.split(' ')[1][0]
