@@ -19,59 +19,65 @@ function Addclient({ }: Props) {
 
   return (
     <>
-      <Modal size="xl" opened={opened} onClose={close} withCloseButton={false} >
+      <Modal centered size="xl" opened={opened} onClose={close} withCloseButton={false} >
 
         <Stepper active={active} onStepClick={setActive} breakpoint="sm">
           <Stepper.Step label="Primer paso" description="Datos personales">
 
-            <Group position='center'>
+            <Group grow>
               <TextInput
                 placeholder="Nombre"
                 label="Nombre"
                 radius="md"
+
               />
               <TextInput
                 placeholder="Apellido"
                 label="Apellido"
                 radius="md"
-                mt={15}
+              />
+              <TextInput
+                placeholder="Cedula"
+                label="Cedula"
+                radius="md"
               />
             </Group>
+            <Group grow>
 
-            <TextInput
-              placeholder="Correo"
-              label="Correo"
-              radius="md"
-              mt={15}
-              ml={155}
-              mr={155}
-            />
+              <TextInput
+                placeholder="Correo"
+                label="Correo"
+                radius="md"
+                mt={15}
 
-            <TextInput
-              placeholder="Numero"
-              label="Numero"
-              radius="md"
-              mt={15}
-              ml={155}
-              mr={155}
-            />
-            <PasswordInput
-              placeholder="Contraseña"
-              label="Contraseña"
-              radius="md"
-              mt={15}
-              ml={155}
-              mr={155}
-            />
+              />
 
-            <PasswordInput
-              placeholder="Confirmar Contraseña"
-              label="Confirmar Contraseña"
-              radius="md"
-              mt={15}
-              ml={155}
-              mr={155}
-            />
+              <TextInput
+                placeholder="Numero"
+                label="Numero"
+                radius="md"
+                mt={15}
+
+              />
+            </Group>
+            <Group grow>
+
+              <PasswordInput
+                placeholder="Contraseña"
+                label="Contraseña"
+                radius="md"
+                mt={15}
+
+              />
+
+              <PasswordInput
+                placeholder="Confirmar Contraseña"
+                label="Confirmar Contraseña"
+                radius="md"
+                mt={15}
+
+              />
+            </Group>
 
           </Stepper.Step>
           <Stepper.Step label="Second step" description="Verify email">
