@@ -8,9 +8,84 @@ import {
   TextInput,
   PasswordInput
 } from '@mantine/core';
+import { useForm } from '@mantine/form';
+
 type Props = {}
 
 function Addclient({ }: Props) {
+
+  const form = useForm({
+    initialValues: {
+      email: '',
+      phone: '',
+      nombre: '',
+      apellido: '',
+      cedula: '',
+      contrasena: '',
+      verificarContrasena: '',
+    },
+
+    validate: {
+      email: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        if (/^\S+@\S+$/.test(value)) {
+          return null;
+        } else {
+          return 'Email inválido';
+        }
+      },
+      phone: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        if (/^[0-9]+$/.test(value)) {
+          return null;
+        } else {
+          return 'Número inválido, debe contener solo números';
+        }
+      },
+      nombre: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        return null;
+      },
+      apellido: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        return null;
+      },
+      cedula: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        if (/^[0-9]+$/.test(value)) {
+          return null;
+        } else {
+          return 'Cédula inválida, debe contener solo números';
+        }
+      },
+      contrasena: (value) => {
+        if (!value) {
+          return 'La contraseña no puede estar vacía';
+        }
+        return null;
+      },
+      verificarContrasena: (value, values) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        if (value === values.contrasena) {
+          return null;
+        } else {
+          return 'Las contraseñas no coinciden';
+        }
+      },
+    },
+  });
 
   const [opened, { open, close }] = useDisclosure(false);
   const [active, setActive] = useState(0);
@@ -24,60 +99,73 @@ function Addclient({ }: Props) {
         <Stepper active={active} onStepClick={setActive} breakpoint="sm">
           <Stepper.Step label="Primer paso" description="Datos personales">
 
-            <Group grow>
-              <TextInput
-                placeholder="Nombre"
-                label="Nombre"
-                radius="md"
+            <form onSubmit={form.onSubmit((values) => console.log(values))}>
 
-              />
-              <TextInput
-                placeholder="Apellido"
-                label="Apellido"
-                radius="md"
-              />
-              <TextInput
-                placeholder="Cedula"
-                label="Cedula"
-                radius="md"
-              />
-            </Group>
-            <Group grow>
+              <Group grow>
+                <TextInput
+                  placeholder="Nombre"
+                  label="Nombre"
+                  radius="md"
+                  {...form.getInputProps('nombre')}
+                />
+                <TextInput
+                  placeholder="Apellido"
+                  label="Apellido"
+                  radius="md"
+                  {...form.getInputProps('apellido')}
+                />
+                <TextInput
+                  placeholder="Cedula"
+                  label="Cedula"
+                  radius="md"
+                  {...form.getInputProps('cedula')}
+                />
+              </Group>
+              <Group grow>
 
-              <TextInput
-                placeholder="Correo"
-                label="Correo"
-                radius="md"
-                mt={15}
+                <TextInput
+                  placeholder="Correo"
+                  label="Correo"
+                  radius="md"
+                  {...form.getInputProps('email')}
 
-              />
+                />
 
-              <TextInput
-                placeholder="Numero"
-                label="Numero"
-                radius="md"
-                mt={15}
+                <TextInput
+                  placeholder="Numero"
+                  label="Numero"
+                  radius="md"
+                  type='number'
+                  {...form.getInputProps('phone')}
 
-              />
-            </Group>
-            <Group grow>
+                />
+              </Group>
+              <Group grow>
 
-              <PasswordInput
-                placeholder="Contraseña"
-                label="Contraseña"
-                radius="md"
-                mt={15}
+                <PasswordInput
+                  placeholder="Contraseña"
+                  label="Contraseña"
+                  radius="md"
+                  mt={15}
+                  {...form.getInputProps('contrasena')}
+                />
 
-              />
+                <PasswordInput
+                  placeholder="Confirmar Contraseña"
+                  label="Confirmar Contraseña"
+                  radius="md"
+                  mt={15}
+                  {...form.getInputProps('verificarContrasena')}
 
-              <PasswordInput
-                placeholder="Confirmar Contraseña"
-                label="Confirmar Contraseña"
-                radius="md"
-                mt={15}
+                />
+              </Group>
+              <Group position="center" mt="xl">
 
-              />
-            </Group>
+                <Button variant="default" onClick={prevStep}>Devolverse</Button>
+                <Button type="submit" >Siguiente</Button>
+
+              </Group>
+            </form>
 
           </Stepper.Step>
           <Stepper.Step label="Second step" description="Verify email">
@@ -89,10 +177,10 @@ function Addclient({ }: Props) {
           </Stepper.Completed>
         </Stepper>
 
-        <Group position="center" mt="xl">
+        {/* <Group position="center" mt="xl">
           <Button variant="default" onClick={prevStep}>Devolverse</Button>
-          <Button onClick={nextStep}>Siguiente</Button>
-        </Group>
+          <Button type="submit" onClick={nextStep}>Siguiente</Button>
+        </Group> */}
       </Modal>
 
       <Group position="center">
