@@ -11,6 +11,8 @@ import Dashboard from './pages/Dashboard.tsx'
 import Login from './pages/Login.tsx'
 import Security from './pages/Security.tsx'
 import Accounts from './pages/Accounts.tsx'
+import MyAccount from './pages/MyAccount.tsx'
+// import ProtectionPin from './components/ProtectionPin.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -19,10 +21,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Router>
           <Modals>
             <App>
+              {/* <ProtectionPin /> */}
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/security" component={Security} />
                 <Route path="/accounts" component={Accounts} />
+                <Route path="/my-account" component={MyAccount} />
                 <Route path="/" component={Dashboard} exact />
               </Switch>
             </App>

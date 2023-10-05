@@ -31,8 +31,7 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderRight: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
-      }`,
+    borderRight: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]}`,
   },
 
   main: {
@@ -135,11 +134,11 @@ const useStyles = createStyles((theme) => ({
 
 const mainLinksMockdata: ILink[] = [
   { icon: IconGauge, label: 'Dashboard', link: '/' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Estadisticas', link: '/statics' },
+  // { icon: IconDeviceDesktopAnalytics, label: 'Estadisticas', link: '/statics' },
   { icon: IconCalendarStats, label: 'Reportes', link: '/reports' },
   { icon: IconUser, label: 'Mi cuenta', link: '/my-account' },
   { icon: IconFingerprint, label: 'Seguridad', link: '/security' },
-  { icon: IconSettings, label: 'Configuraciones', link: '/settings' },
+  // { icon: IconSettings, label: 'Configuraciones', link: '/settings' },
 ];
 
 export default function Nav() {

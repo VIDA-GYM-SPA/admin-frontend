@@ -9,7 +9,8 @@ import {
   Anchor,
   Input,
   ActionIcon,
-  Pagination
+  Pagination,
+  createStyles
 } from "@mantine/core"
 import {
   IconCheck,
@@ -21,10 +22,20 @@ import EditModal from "../components/_security/EditModal";
 import DeleteModal from "../components/_security/DeleteModal";
 import Addclient from "../components/_security/Addclient";
 
-
 function Security() {
   const [searchValue, setSearchValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+
+  const useStyles = createStyles((theme) => ({
+    sectionCard: {
+      width: 'calc(100% + 0.5em)',
+      height: 'calc(100% + 1em)',
+      marginTop: '-10px',
+      boxShadow: theme.shadows.md,
+      padding: 0
+    },
+  }))
+
   const rowsPerPage = 17;
 
   const elements = [
@@ -115,29 +126,27 @@ function Security() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  const { classes } = useStyles()
+
   return (
     <>
-      <Card
-        w='100%'
-        h='100%'
-        shadow="sm"
+      <Card 
+        className={classes.sectionCard + ' security'}
+        id='my-account'
+        component="section"
         withBorder
       >
-
         <Group position="apart">
-
           <Title italic order={2}>
             Seguridad
           </Title>
           <Breadcrumbs separator=">">{plink}</Breadcrumbs>
-
         </Group>
-
         <Title order={3} fw={200} >
           Seguridad de usuarios en el gimnasio y planes
         </Title>
         <Group position="apart">
-
           <Group w={955} spacing={0} >
             <Input
               maw={500}
