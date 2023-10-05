@@ -1,15 +1,15 @@
 import {
   Card,
-  Avatar,
   Text,
   createStyles,
   Group,
   ScrollArea,
   Button
 } from "@mantine/core"
-import { IconCalendar, IconCreditCard, IconEdit, IconEye } from "@tabler/icons-react";
+import { IconCalendar, IconCreditCard } from "@tabler/icons-react";
 import AvatarChangeModal from "./_account/AvatarChange.modal";
 import EditPasswordModal from "./_account/EditPassword.modal";
+import TokenModal from "./_account/Token.modal";
 
 const useStyles = createStyles((theme) => ({
   profileSide: {
@@ -29,7 +29,6 @@ const useStyles = createStyles((theme) => ({
 }))
 
 function ProfileCard() {
-
   const { classes } = useStyles()
 
   return (
@@ -68,16 +67,7 @@ function ProfileCard() {
             mt={15}
           >
             <EditPasswordModal />
-            <Button
-              variant="filled"
-              color="red"
-              leftIcon={
-                <IconEye />
-              }
-              size="sm"
-            >
-              Ver token
-            </Button>
+            <TokenModal user_id={1} />
           </Group>
           <Group
             w="100%"
