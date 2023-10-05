@@ -9,6 +9,7 @@ import {
 } from "@mantine/core"
 import { IconCalendar, IconCreditCard, IconEdit, IconEye } from "@tabler/icons-react";
 import AvatarChangeModal from "./_account/AvatarChange.modal";
+import EditPasswordModal from "./_account/EditPassword.modal";
 
 const useStyles = createStyles((theme) => ({
   profileSide: {
@@ -36,7 +37,7 @@ function ProfileCard() {
       <Group w="100%" position="center" mt={30}>
         <Card withBorder className={classes.profileSide}>
           <Group w="100%" position="center">
-            <AvatarChangeModal user_id={1}/>
+            <AvatarChangeModal user_id={1} />
           </Group>
           <Text
             ta="center"
@@ -66,19 +67,8 @@ function ProfileCard() {
             w="100%"
             mt={15}
           >
+            <EditPasswordModal />
             <Button
-              w='47.5%'
-              variant="filled"
-              color="blue"
-              leftIcon={
-                <IconEdit />
-              }
-              size="sm"
-            >
-              Editar contraseña
-            </Button>
-            <Button
-              w='47.5%'
               variant="filled"
               color="red"
               leftIcon={
