@@ -12,14 +12,15 @@ import {
 type Props = {}
 
 function DeleteModal({ }: Props) {
-  const [openr, { open, close }] = useDisclosure(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  
   return (
     <>
       <ActionIcon onClick={open} color="red" variant="filled">
         <IconTrash />
       </ActionIcon>
       <Modal 
-        opened={openr} 
+        opened={opened} 
         onClose={close} 
         centered 
         size='lg' 

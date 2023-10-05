@@ -8,6 +8,7 @@ import {
   Button
 } from "@mantine/core"
 import { IconCalendar, IconCreditCard, IconEdit, IconEye } from "@tabler/icons-react";
+import AvatarChangeModal from "./_account/AvatarChange.modal";
 
 const useStyles = createStyles((theme) => ({
   profileSide: {
@@ -17,25 +18,6 @@ const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.md,
     background: theme.colors.blue[0],
     boxShadow: theme.shadows.md,
-  },
-  avatarHeader: {
-    borderRadius: theme.radius.xl,
-    minWidth: 230,
-    minHeight: 230,
-    marginBottom: 30,
-    maxHeight: 250,
-    border: '0.0625rem solid #dee2e6',
-    shadow: theme.shadows.xl,
-    background: theme.white,
-    maxWidth: 250,
-  },
-  avatarText: {
-    fontSize: 80,
-    fontFamily: theme.fontFamily,
-    fontWeight: 700,
-    marginTop: theme.spacing.md,
-    color: theme.colors.blue[4],
-    marginBottom: theme.spacing.md,
   },
   buttonPayments: {
     borderRadius: '5px 0px 0px 5px'
@@ -54,11 +36,7 @@ function ProfileCard() {
       <Group w="100%" position="center" mt={30}>
         <Card withBorder className={classes.profileSide}>
           <Group w="100%" position="center">
-            <Avatar
-              className={classes.avatarHeader}
-            >
-              <Text className={classes.avatarText}>DU</Text>
-            </Avatar>
+            <AvatarChangeModal user_id={1}/>
           </Group>
           <Text
             ta="center"
