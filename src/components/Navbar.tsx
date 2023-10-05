@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { createStyles, Navbar, UnstyledButton, Tooltip, Title, rem, Avatar } from '@mantine/core';
 import {
   IconGauge,
-  IconDeviceDesktopAnalytics,
+  // IconDeviceDesktopAnalytics,
   IconFingerprint,
   IconCalendarStats,
   IconUser,
-  IconSettings,
+  // IconSettings,
   IconChevronLeft
 } from '@tabler/icons-react';
 import { useSidebar } from '../hooks/useSidebar';
