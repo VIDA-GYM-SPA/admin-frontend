@@ -1,32 +1,22 @@
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, createStyles, Table, Group, Button } from '@mantine/core';
-import { IconCreditCard } from "@tabler/icons-react";
+import { Modal, Table, Button, Text } from '@mantine/core';
 
-const useStyles = createStyles((theme) => ({
-  profileSide: {
-    width: 400,
-    height: '100%',
-    padding: theme.spacing.md,
-    borderRadius: theme.radius.md,
-    background: theme.colors.blue[0],
-    boxShadow: theme.shadows.md,
-  },
-  buttonPayments: {
-    borderRadius: '5px 0px 0px 5px'
-  },
-  buttonCalendar: {
-    borderRadius: '0px 5px 5px 0px'
-  }
-}))
+interface IPaymentsModal {
+  w?: string | number
+  variant?: 'filled' | 'light' | 'outline' | 'transparent' | 'white' | 'subtle' | 'default' | 'gradient';
+  color?: string
+  className?: string
+  leftIcon?: React.ReactNode
+  size?: string
+  children?: React.ReactNode
+}
 
-function PaymentsModal() {
+function PaymentsModal({ w, variant, color, className, leftIcon, size, children }: IPaymentsModal) {
   const [opened, { open, close }] = useDisclosure(false);
 
-  const { classes } = useStyles()
-
   const elements = [
-    { ID: 6, Monto: 12.011, Nombre: 'Diego U', Fecha: '15/5/2023' },
-    { ID: 7, Monto: 14.007, Nombre: 'Evanan S', Fecha: '15/5/2023' },
+    { ID: 6, Monto: 12.011, Nombre: 'Diego Urrutia', Fecha: '15/5/2023' },
+    { ID: 7, Monto: 14.007, Nombre: 'Diego Urrutia', Fecha: '15/5/2023' },
   ];
   const rows = elements.map((element) => (
     <tr key={element.ID}>
@@ -40,7 +30,14 @@ function PaymentsModal() {
 
   return (
     <>
-      <Modal opened={opened} centered onClose={close} withCloseButton={false}>
+      <Modal
+        opened={opened} 
+        size="lg"
+        centered 
+        onClose={close} 
+        title={<Text fz={20} fw={700} italic>Lista de pagos</Text>}
+        withCloseButton
+      >
         <Table striped highlightOnHover withBorder withColumnBorders>
           <thead>
             <tr>
@@ -53,22 +50,17 @@ function PaymentsModal() {
           <tbody>{rows}</tbody>
         </Table>
       </Modal>
-
-      <Group position="center">
-        <Button
-          w="300px"
-          variant="filled"
-          color="teal"
-          onClick={open}
-          className={classes.buttonPayments}
-          leftIcon={
-            <IconCreditCard />
-          }
-          size="sm"
-        >
-          Ver pagos
-        </Button>
-      </Group>
+      <Button
+        w={w}
+        variant={variant}
+        color={color}
+        onClick={open}
+        className={className}
+        leftIcon={leftIcon}
+        size={size}
+      >
+        {children}
+      </Button>
     </>
   )
 }

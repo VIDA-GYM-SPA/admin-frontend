@@ -5,9 +5,7 @@ import {
   Button
 } from "@mantine/core"
 import { useDisclosure } from '@mantine/hooks';
-import {
-  IconTrash
-} from '@tabler/icons-react';
+import { IconTrash } from '@tabler/icons-react';
 
 type Props = {}
 

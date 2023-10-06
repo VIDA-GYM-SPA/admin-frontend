@@ -1,6 +1,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import {
   Modal,
+  Text,
   Button,
   Group,
   PasswordInput,
@@ -9,11 +10,8 @@ import { IconEdit } from "@tabler/icons-react";
 import { useForm } from '@mantine/form';
 
 function EditPasswordModal() {
-
   const [opened, { open, close }] = useDisclosure(false);
-
   const password = 4567;
-
   const form = useForm({
     initialValues: {
       oldcontrasena: '',
@@ -47,33 +45,37 @@ function EditPasswordModal() {
       },
     },
   });
+
   return (
     <>
-
-      <Modal opened={opened} onClose={close} withCloseButton={false} centered>
-
+      <Modal 
+        opened={opened} 
+        onClose={close} 
+        withCloseButton 
+        centered
+        title={<Text fz={20} fw={700} italic>Cambiar contraseña</Text>}
+      >
         <form onSubmit={form.onSubmit((values) => console.log(values))}>
-
           <PasswordInput
             placeholder="Contraseña Antigua"
             label="Contraseña Antigua"
+            mb={10}
             {...form.getInputProps('oldcontrasena')}
           />
-
           <PasswordInput
             placeholder="Nueva Contraseña"
             label="Nueva Contraseña"
+            mb={10}
             {...form.getInputProps('newcontrasena')}
           />
-
           <PasswordInput
             placeholder="Confirmar Nueva Contraseña"
             label="Confirmar Nueva Contraseña"
+            mb={10}
             {...form.getInputProps('confirmnewcontrasena')}
           />
-
           <Group position="center" mt="md">
-            <Button type="submit">Registrar</Button>
+            <Button fullWidth type="submit">Registrar</Button>
           </Group>
         </form>
       </Modal>
@@ -81,7 +83,6 @@ function EditPasswordModal() {
       <Group position="center">
         <Button
           onClick={open}
-
           variant="filled"
           color="blue"
           leftIcon={

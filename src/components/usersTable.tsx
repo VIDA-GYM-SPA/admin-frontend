@@ -10,9 +10,9 @@ import {
   useMantineTheme,
   TextInput,
   MultiSelect,
-  Button,
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
+import AddClient from './_security/AddClient';
 
 interface UsersTableProps {
   data: { avatar: string; name: string; job: string; email: string; dni: string }[];
@@ -85,9 +85,10 @@ export function UsersTable({ data }: UsersTableProps) {
             { value: 'cliente', label: 'Cliente' },
           ]}
         />
-        <Button>
-          Agregar usuarios
-        </Button>
+        <AddClient
+          size="sm"
+          label="Agregar usuario"
+        />
       </Group>
       <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
         <thead>

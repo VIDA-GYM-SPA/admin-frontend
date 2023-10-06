@@ -6,13 +6,20 @@ import {
   Button,
   Group,
   TextInput,
-  PasswordInput
+  PasswordInput,
+  Select,
+  Text
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-type Props = {}
+interface IAddClient {
+  width?: string | number
+  size: string
+  label: string
+}
 
-function Addclient({ }: Props) {
+function AddClient({ width, size, label }: IAddClient) {
+  const allowedRoles = ['Admin', 'Personal', 'Cliente']
 
   const form = useForm({
     initialValues: {
@@ -20,6 +27,7 @@ function Addclient({ }: Props) {
       phone: '',
       nombre: '',
       apellido: '',
+      role: 'Cliente',
       cedula: '',
       contrasena: '',
       verificarContrasena: '',
@@ -58,6 +66,16 @@ function Addclient({ }: Props) {
         }
         return null;
       },
+      role: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        }
+        if (allowedRoles.includes(value)) {
+          return null;
+        } else {
+          return 'Rol inválido';
+        }
+      },
       cedula: (value) => {
         if (!value) {
           return 'Este campo no puede estar vacío';
@@ -92,15 +110,24 @@ function Addclient({ }: Props) {
   const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
+  const StepTwo = () => {
+    return (
+      <Text>Second Step</Text>
+    )
+  }
+
+  const closeModal = () => {
+    form.reset()
+    setActive(0)
+    close()
+  }
+
   return (
     <>
-      <Modal centered size="xl" opened={opened} onClose={close} withCloseButton={false} >
-
+      <Modal centered size="xl" opened={opened} onClose={() => closeModal()} withCloseButton={false} padding="30px">
         <Stepper active={active} onStepClick={setActive} breakpoint="sm">
           <Stepper.Step label="Primer paso" description="Datos personales">
-
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
-
+            <form onSubmit={form.onSubmit(() => nextStep())}>
               <Group grow>
                 <TextInput
                   placeholder="Nombre"
@@ -122,26 +149,21 @@ function Addclient({ }: Props) {
                 />
               </Group>
               <Group grow>
-
                 <TextInput
                   placeholder="Correo"
                   label="Correo"
                   radius="md"
                   {...form.getInputProps('email')}
-
                 />
-
                 <TextInput
                   placeholder="Numero"
                   label="Numero"
                   radius="md"
                   type='number'
                   {...form.getInputProps('phone')}
-
                 />
               </Group>
               <Group grow>
-
                 <PasswordInput
                   placeholder="Contraseña"
                   label="Contraseña"
@@ -149,27 +171,45 @@ function Addclient({ }: Props) {
                   mt={15}
                   {...form.getInputProps('contrasena')}
                 />
-
                 <PasswordInput
                   placeholder="Confirmar Contraseña"
                   label="Confirmar Contraseña"
                   radius="md"
                   mt={15}
                   {...form.getInputProps('verificarContrasena')}
-
+                />
+              </Group>
+              <Group w="100%">
+                <Select
+                  data={[
+                    {
+                      label: "Admin",
+                      value: "Admin"
+                    },
+                    {
+                      label: "Personal",
+                      value: "Personal"
+                    },
+                    {
+                      label: "Cliente",
+                      value: "Cliente"
+                    }
+                  ]}
+                  label="Rol"
+                  placeholder="Rol"
+                  w="100%"
+                  mt={15}
+                  {...form.getInputProps('role')}
                 />
               </Group>
               <Group position="center" mt="xl">
-
                 <Button variant="default" onClick={prevStep}>Devolverse</Button>
                 <Button type="submit" >Siguiente</Button>
-
               </Group>
             </form>
-
           </Stepper.Step>
           <Stepper.Step label="Second step" description="Verify email">
-            Step 2 content: Verify email
+            <StepTwo />
           </Stepper.Step>
 
           <Stepper.Completed>
@@ -184,10 +224,10 @@ function Addclient({ }: Props) {
       </Modal>
 
       <Group position="center">
-        <Button w={400} onClick={open} size='md'>Agregar usuario</Button>
+        <Button w={width} onClick={open} size={size}>{label}</Button>
       </Group>
     </>
   )
 }
 
-export default Addclient
+export default AddClient

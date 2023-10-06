@@ -11,7 +11,11 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconCopy, IconCheck, IconEye } from '@tabler/icons-react';
+import { 
+  IconCopy, 
+  IconCheck, 
+  IconEye 
+} from '@tabler/icons-react';
 
 interface IModal { 
   user_id: number

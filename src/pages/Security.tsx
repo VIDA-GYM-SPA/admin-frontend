@@ -20,7 +20,7 @@ import {
 } from '@tabler/icons-react';
 import EditModal from "../components/_security/EditModal";
 import DeleteModal from "../components/_security/DeleteModal";
-import Addclient from "../components/_security/Addclient";
+import AddClient from "../components/_security/AddClient";
 
 function Security() {
   const [searchValue, setSearchValue] = useState('');
@@ -168,7 +168,11 @@ function Security() {
             </Group>
 
           </Group>
-          <Addclient />
+          <AddClient 
+            width={300}
+            size="md"
+            label="Agregar usuario"
+          />
 
         </Group>
 

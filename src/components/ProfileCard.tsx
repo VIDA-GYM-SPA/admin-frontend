@@ -10,6 +10,7 @@ import { IconCalendar, IconCreditCard } from "@tabler/icons-react";
 import AvatarChangeModal from "./_account/AvatarChange.modal";
 import EditPasswordModal from "./_account/EditPassword.modal";
 import TokenModal from "./_account/Token.modal";
+import PaymentsModal from "./_account/Payments.modal";
 
 const useStyles = createStyles((theme) => ({
   profileSide: {
@@ -74,7 +75,7 @@ function ProfileCard() {
             mt={15}
             spacing={0}
           >
-            <Button
+            <PaymentsModal
               w="83%"
               variant="filled"
               color="teal"
@@ -85,7 +86,7 @@ function ProfileCard() {
               size="sm"
             >
               Ver pagos
-            </Button>
+            </PaymentsModal>
             <Button
               w="17%"
               variant="filled"
