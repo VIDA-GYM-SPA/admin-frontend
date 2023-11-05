@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface IUser {
-  firstname: string;
+  id: number;
+  name: string;
   lastname: string;
+  role: string;
   email: string;
   avatar: string | Blob | null;
+  remember: boolean;
   token: string | null;
-  expiresAt: Date | string;
-  lastLogin: Date | string;
+  gender: 'Male' | 'Female'
+  expires: Date | string;
 }
 
 interface IUserState {
@@ -35,7 +38,7 @@ export const userSlice = createSlice({
       }
 
       if (state.user) {
-        const expiresAt = new Date(state.user.expiresAt);
+        const expiresAt = new Date(state.user.expires);
         const now = new Date();
         if (expiresAt < now) {
           state.user = null;
