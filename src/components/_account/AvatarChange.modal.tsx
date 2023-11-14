@@ -3,10 +3,11 @@ import { useDisclosure } from "@mantine/hooks"
 import { useState } from "react";
 
 interface IModal {
-  user_id: number
+  user_id: number;
+  name: string;
 }
 
-function AvatarChangeModal({}: IModal) { 
+function AvatarChangeModal({ name }: IModal) { 
   // @ts-ignore
   // eslint-disable-next-line
   const [file, setFile] = useState<File | null>(null);
@@ -51,9 +52,9 @@ function AvatarChangeModal({}: IModal) {
   return (
     <>
       <Avatar
-        onClick={open} 
+        // onClick={open} 
         className={hovering ? classes.avatarHeader : classes.avatarHover}>
-        <Text className={classes.avatarText}>DU</Text>
+        <Text className={classes.avatarText}>{name}</Text>
       </Avatar>
       <Modal 
         opened={opened} 

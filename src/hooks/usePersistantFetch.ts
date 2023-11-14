@@ -13,7 +13,7 @@ type Action<T> =
   | { type: 'fetched'; payload: T }
   | { type: 'error'; payload: Error }
 
-export function useFetch<T = unknown>(
+export function usePersistantFetch<T = unknown>(
   url?: string,
   options?: RequestInit,
 ): State<T> {

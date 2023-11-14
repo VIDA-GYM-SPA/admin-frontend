@@ -8,9 +8,14 @@ import {
   TextInput,
   PasswordInput,
   Select,
-  Text
+  Text,
+  Paper,
+  Avatar,
+  useMantineTheme,
+  Title
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { IconSend } from '@tabler/icons-react';
 
 interface IAddClient {
   width?: string | number
@@ -19,18 +24,23 @@ interface IAddClient {
 }
 
 function AddClient({ width, size, label }: IAddClient) {
-  const allowedRoles = ['Admin', 'Personal', 'Cliente']
+  const allowedRoles = ['1', '2', '3']
+  const existantGenders = ['Male', 'Female']
+  const dniPrefixes = ['v-', 'e-', 'j-', 'g-']
+  
+  const theme = useMantineTheme()
 
   const form = useForm({
     initialValues: {
       email: '',
       phone: '',
-      nombre: '',
-      apellido: '',
-      role: 'Cliente',
-      cedula: '',
-      contrasena: '',
-      verificarContrasena: '',
+      name: '',
+      lastname: '',
+      role_id: '',
+      gender: '',
+      dni: '',
+      password: '',
+      password_confirmation: '',
     },
 
     validate: {
@@ -54,19 +64,19 @@ function AddClient({ width, size, label }: IAddClient) {
           return 'Número inválido, debe contener solo números';
         }
       },
-      nombre: (value) => {
+      name: (value) => {
         if (!value) {
           return 'Este campo no puede estar vacío';
         }
         return null;
       },
-      apellido: (value) => {
+      lastname: (value) => {
         if (!value) {
           return 'Este campo no puede estar vacío';
         }
         return null;
       },
-      role: (value) => {
+      role_id: (value) => {
         if (!value) {
           return 'Este campo no puede estar vacío';
         }
@@ -76,27 +86,39 @@ function AddClient({ width, size, label }: IAddClient) {
           return 'Rol inválido';
         }
       },
-      cedula: (value) => {
-        if (!value) {
-          return 'Este campo no puede estar vacío';
-        }
-        if (/^[0-9]+$/.test(value)) {
-          return null;
+      gender: (value) => {
+        if (existantGenders.includes(value)) {
+          return null
         } else {
-          return 'Cédula inválida, debe contener solo números';
+          return 'Debe ingresar un género válido'
         }
       },
-      contrasena: (value) => {
+      dni: (value) => {
+        if (!value) {
+          return 'Este campo no puede estar vacío';
+        } else {
+          if (dniPrefixes.includes(value[0].toLowerCase() + value[1].toLowerCase())) {
+            if (value.length >= 9 && value.length <= 10) {
+              return null
+            } else {
+              return 'Debe ser de al menos 9 dígitos de longitud'
+            }
+          } else {
+            return 'Debe ingresar la cédula con V/J/G/E seguido de guión (-)'
+          }
+        }
+      },
+      password: (value) => {
         if (!value) {
           return 'La contraseña no puede estar vacía';
         }
         return null;
       },
-      verificarContrasena: (value, values) => {
+      password_confirmation: (value, values) => {
         if (!value) {
           return 'Este campo no puede estar vacío';
         }
-        if (value === values.contrasena) {
+        if (value === values.password) {
           return null;
         } else {
           return 'Las contraseñas no coinciden';
@@ -107,12 +129,103 @@ function AddClient({ width, size, label }: IAddClient) {
 
   const [opened, { open, close }] = useDisclosure(false);
   const [active, setActive] = useState(0);
+
+  const parseRoles = (role: string) => {
+    switch (role) {
+      case '1': return('Admin');
+      case '2': return('Empleado');
+      case '3': return('Cliente');
+      default: return('Indefinido');
+    }
+  }
+
   const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
+  const Verifiers = ({ title, description }: { title: string; description: string }) => {
+    return (
+      <Group position='center' w="100%">
+        <Text
+          fz={20} 
+          fw={600}
+          ta="end"
+          w="48.70%"
+        >
+          {title}
+        </Text>
+        <Text
+          fz={20}
+          fw={350}
+          ta="start"
+          w="48.70%"
+        >
+          {description}
+        </Text>
+      </Group>
+    )
+  }
+
   const StepTwo = () => {
     return (
-      <Text>Second Step</Text>
+      <>
+        <Paper 
+          w="100%"
+          bg={theme.colors.gray[0]}
+          py={20}
+          px={20}
+        >
+          <Group 
+            position='center'
+            mb={10}
+          >
+            <Avatar
+              w={150}
+              h={150}
+              color='light'
+            >
+              <Text 
+                fz={40}
+                fw={450}
+              >
+                {form.values.name[0].toUpperCase() + form.values.lastname[0].toUpperCase()}
+              </Text>
+            </Avatar>
+          </Group>
+          <Verifiers 
+            title="Nombre:"
+            description={form.values.name + ' ' + form.values.lastname}
+          />
+          <Verifiers 
+            title="Correo:"
+            description={form.values.email}
+          />
+          <Verifiers 
+            title="Telefono:"
+            description={form.values.phone}
+          />
+          <Verifiers 
+            title="Género:"
+            description={form.values.gender === 'Male' ? "Masculino 🧑🏻" : "Femenino 👧🏻"}
+          />
+          <Verifiers 
+            title="Rol:"
+            description={parseRoles(form.values.role_id)}
+          />
+          <Verifiers 
+            title="Cédula:"
+            description={form.values.dni}
+          />
+        </Paper>
+          <Button 
+            mt={20}
+            color='teal'
+            rightIcon={<IconSend />}
+            size='lg'
+            fullWidth
+          >
+            Crear usuario
+          </Button> 
+      </>
     )
   }
 
@@ -128,24 +241,24 @@ function AddClient({ width, size, label }: IAddClient) {
         <Stepper active={active} onStepClick={setActive} breakpoint="sm">
           <Stepper.Step label="Primer paso" description="Datos personales">
             <form onSubmit={form.onSubmit(() => nextStep())}>
-              <Group grow>
+              <Group grow mb={5}>
                 <TextInput
                   placeholder="Nombre"
                   label="Nombre"
                   radius="md"
-                  {...form.getInputProps('nombre')}
+                  {...form.getInputProps('name')}
                 />
                 <TextInput
                   placeholder="Apellido"
                   label="Apellido"
                   radius="md"
-                  {...form.getInputProps('apellido')}
+                  {...form.getInputProps('lastname')}
                 />
                 <TextInput
-                  placeholder="Cedula"
-                  label="Cedula"
+                  placeholder="Cédula"
+                  label="Cédula"
                   radius="md"
-                  {...form.getInputProps('cedula')}
+                  {...form.getInputProps('dni')}
                 />
               </Group>
               <Group grow>
@@ -156,8 +269,8 @@ function AddClient({ width, size, label }: IAddClient) {
                   {...form.getInputProps('email')}
                 />
                 <TextInput
-                  placeholder="Numero"
-                  label="Numero"
+                  label="Número de telefono"
+                  placeholder="Ingrese número de telefono"
                   radius="md"
                   type='number'
                   {...form.getInputProps('phone')}
@@ -169,46 +282,63 @@ function AddClient({ width, size, label }: IAddClient) {
                   label="Contraseña"
                   radius="md"
                   mt={15}
-                  {...form.getInputProps('contrasena')}
+                  {...form.getInputProps('password')}
                 />
                 <PasswordInput
                   placeholder="Confirmar Contraseña"
                   label="Confirmar Contraseña"
                   radius="md"
                   mt={15}
-                  {...form.getInputProps('verificarContrasena')}
+                  {...form.getInputProps('password_confirmation')}
                 />
               </Group>
               <Group w="100%">
                 <Select
+                  w='48.89%'
                   data={[
                     {
                       label: "Admin",
-                      value: "Admin"
+                      value: '1'
                     },
                     {
                       label: "Personal",
-                      value: "Personal"
+                      value: '2'
                     },
                     {
                       label: "Cliente",
-                      value: "Cliente"
+                      value: '3'
                     }
                   ]}
                   label="Rol"
-                  placeholder="Rol"
-                  w="100%"
+                  placeholder="Seleccione un rol"
                   mt={15}
-                  {...form.getInputProps('role')}
+                  {...form.getInputProps('role_id')}
+                />
+                <Select
+                  w='48.89%'
+                  data={[
+                    {
+                      label: "Masculino",
+                      value: 'Male'
+                    },
+                    {
+                      label: "Femenino",
+                      value: 'Female'
+                    }
+                  ]}
+                  label="Género"
+                  placeholder="Seleccione un género"
+                  mt={15}
+                  {...form.getInputProps('gender')}
                 />
               </Group>
               <Group position="center" mt="xl">
                 <Button variant="default" onClick={prevStep}>Devolverse</Button>
-                <Button type="submit" >Siguiente</Button>
+                <Button type="submit">Siguiente</Button>
               </Group>
             </form>
           </Stepper.Step>
-          <Stepper.Step label="Second step" description="Verify email">
+          <Stepper.Step label="Segundo paso" description="Verificar datos de usuario">
             <StepTwo />
           </Stepper.Step>
 

@@ -18,31 +18,32 @@ import {
 } from '@tabler/icons-react';
 
 interface IModal { 
-  user_id: number
+  token: string;
 }
 
-const Copy = () => {
-  return (
-    <CopyButton value="AODNE-FHPBM-324JM-NDJI9" timeout={2000}>
-      {({ copied, copy }) => (
-        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-          <ActionIcon  size='lg' color={copied ? 'teal' : 'gray'} variant="subtle" onClick={copy}>
-            {copied ? (
-              <IconCheck style={{ width: rem(16) }} />
-            ) : (
-              <IconCopy style={{ width: rem(16) }} />
-            )}
-          </ActionIcon>
-        </Tooltip>
-      )}
-    </CopyButton>
-  )
-}
 
-function TokenModal({}: IModal) {
+function TokenModal({ token }: IModal) {
   const [opened, { open, close }] = useDisclosure(false);
-
+  
   const theme = useMantineTheme();
+  
+  const Copy = () => {
+    return (
+      <CopyButton value={token} timeout={2000}>
+        {({ copied, copy }) => (
+          <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+            <ActionIcon  size='lg' color={copied ? 'teal' : 'gray'} variant="subtle" onClick={copy}>
+              {copied ? (
+                <IconCheck style={{ width: rem(16) }} />
+              ) : (
+                <IconCopy style={{ width: rem(16) }} />
+              )}
+            </ActionIcon>
+          </Tooltip>
+        )}
+      </CopyButton>
+    )
+  }
   
   return (
     <>
@@ -68,7 +69,7 @@ function TokenModal({}: IModal) {
         <Card shadow="sm" w="100%" bg={theme.colors.blue[0]}>
           <Group position="apart">
             <Text italic>
-              AODNE-FHPBM-324JM-NDJI9
+              {token}
             </Text>
             <Copy />
           </Group>

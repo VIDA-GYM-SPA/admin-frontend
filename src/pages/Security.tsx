@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { 
+  useState, 
+  useEffect 
+} from 'react';
 import {
   Card,
   Table,
@@ -21,10 +24,26 @@ import {
 import EditModal from "../components/_security/EditModal";
 import DeleteModal from "../components/_security/DeleteModal";
 import AddClient from "../components/_security/AddClient";
+import ActionCable from 'actioncable';
+import { IUser } from '../interfaces';
 
 function Security() {
   const [searchValue, setSearchValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [elements, setElements] = useState<IUser[]>([
+    {
+      name: "Alejandro",
+      lastname: "Semprun",
+      email: "alejandrocastro@gmail.com",
+      dni: "V-31012111",
+      rfid: "78cd57b1e0232b99b4e431e17837e8ea33d98616421490258597ffdad4a31232d654e0539b49f55dcd6a0cf06cf554e2",
+      fingerprint: null,
+      role: {
+        name: 'Client'
+      },
+      role_id: 3,
+  }
+  ])
 
   const useStyles = createStyles((theme) => ({
     sectionCard: {
@@ -36,37 +55,33 @@ function Security() {
     },
   }))
 
-  const rowsPerPage = 17;
+  useEffect(() => {
+    waitCable()
+  }, [])
 
-  const elements = [
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Diego Urrutia' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Evanan Semprun',cedula:29543546 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Maria Rodriguez',cedula:295434534 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Carlos Gomez',cedula:28543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Laura Hernandez',cedula:19543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Juan Perez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Ana Martinez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Carlos Gomez' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Laura Hernandez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Juan Perez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Ana Martinez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' ,cedula:20543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Ana Martinez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez',cedula:29543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres' ,cedula:28543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Desactivada', nombre: 'Ana Martinez' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Desactivada', nombre: 'Pedro Sanchez',cedula:24543321 },
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Desactivada', Huella: 'Activa', nombre: 'Isabel Torres' ,cedula:29543321},
-    { suscripcion: 35, rol: "Cliente", pulsera: 'Activa', Huella: 'Activa', nombre: 'Luis Ramirez' ,cedula:29543321},
-  ];
+  const rowsPerPage = 12;
+
+  const waitCable = () => {
+    let actioncable = ActionCable.createConsumer('wss://api.examplegym.online/cable');
+    actioncable.subscriptions.create({ channel: 'ClientsChannel' }, {
+      connected: () => {
+        console.log('Connected to internal channel.');
+      },
+      disconnected: () => {
+        console.log('Disconnected from internal channel.');
+      },
+      received: (data: IUser[]) => {
+        console.log(data)
+        setElements(data)
+      },
+      rfid_status: (data: IUser[]) => {
+        console.log(data)
+      }
+    })
+  }
+
   const filteredElements = elements.filter((element) =>
-    element.nombre.toLowerCase().includes(searchValue.toLowerCase())
+    element.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredElements.length / rowsPerPage);
@@ -74,25 +89,23 @@ function Security() {
   const endIndex = startIndex + rowsPerPage;
   const currentRows = filteredElements.slice(startIndex, endIndex);
 
-
   const plink = [
     { title: 'Dashboard', href: '/' },
-    { title: 'Seguridad', href: '#' },
+    { title: 'Seguridad', href: '/security' },
   ].map((plink, index) => (
     <Anchor href={plink.href} key={index}>
       {plink.title}
     </Anchor>
   ));
 
-
   const rows = currentRows.map((element, index) => (
     <tr key={index}>
-      <td>{element.nombre}</td>
-      <td>{element.cedula}</td>
-      <td>{element.suscripcion}$</td>
-      <td>{element.rol}</td>
+      <td>{element.name + ' ' + element.lastname}</td>
+      <td>{element.dni}</td>
+      <td>35$</td>
+      <td>Cliente</td>
       <td style={{ textAlign: "center" }}>
-        {element.pulsera === 'Activa' ? (
+        {element.rfid !== null ? (
           <Badge color="green" pt={5}>
             <IconCheck size="0.875rem" />
           </Badge>
@@ -102,7 +115,7 @@ function Security() {
           </Badge>
         )}
       </td>
-      <td style={{ textAlign: "center" }}>
+      {/* <td style={{ textAlign: "center" }}>
         {element.Huella === 'Activa' ? (
           <Badge color="green" pt={5}>
             <IconCheck size="0.875rem" />
@@ -112,7 +125,7 @@ function Security() {
             <IconX size="0.875rem" />
           </Badge>
         )}
-      </td>
+      </td> */}
 
       <td>
         <Group position="center">
@@ -161,7 +174,14 @@ function Security() {
 
             <Group spacing={0} mt={10}>
               {/* <Button color="blue" variant="filled" size="md" style={{ borderRadius: '5px 0 0 5px' }}>Filtrar</Button> */}
-              <ActionIcon px={3} h={42} color="orange" variant="filled" style={{ borderRadius: '0 5px 5px 0' }}>
+              <ActionIcon 
+                color="orange" 
+                variant="filled" 
+                px={3} 
+                h={42} 
+                style={{ borderRadius: '0 5px 5px 0' }}
+                onClick={() => setSearchValue('')}
+              >
                 <IconRepeat />
               </ActionIcon>
 
@@ -191,7 +211,6 @@ function Security() {
               <th style={{ textAlign: 'center' }}>Suscripcion</th>
               <th style={{ textAlign: 'center' }}>Rol</th>
               <th style={{ textAlign: 'center' }}>Pulsera</th>
-              <th style={{ textAlign: 'center' }}>Huella</th>
               <th style={{ textAlign: 'center' }}>Acciones</th>
             </tr>
           </thead>

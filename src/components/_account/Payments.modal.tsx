@@ -1,5 +1,6 @@
+import { Modal, Table, Button, Text, Paper, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Table, Button, Text } from '@mantine/core';
+import { IconPlus } from '@tabler/icons-react';
 
 interface IPaymentsModal {
   w?: string | number
@@ -9,46 +10,63 @@ interface IPaymentsModal {
   leftIcon?: React.ReactNode
   size?: string
   children?: React.ReactNode
+  data: {
+    id: number;
+    amount: number;
+    payment_date: string;
+    name: string;
+    money: '$' | 'Bs.D';
+  }[]
 }
 
-function PaymentsModal({ w, variant, color, className, leftIcon, size, children }: IPaymentsModal) {
+function PaymentsModal({ w, variant, color, className, leftIcon, size, children, data }: IPaymentsModal) {
   const [opened, { open, close }] = useDisclosure(false);
 
-  const elements = [
-    { ID: 6, Monto: 12.011, Nombre: 'Diego Urrutia', Fecha: '15/5/2023' },
-    { ID: 7, Monto: 14.007, Nombre: 'Diego Urrutia', Fecha: '15/5/2023' },
-  ];
-  const rows = elements.map((element) => (
-    <tr key={element.ID}>
-      <td>{element.ID}</td>
-      <td>{element.Monto}</td>
-      <td>{element.Fecha}</td>
-      <td>{element.Nombre}</td>
-      
+  const rows = data.map((element) => (
+    <tr key={element.id}>
+      <td>{element.id}</td>
+      <td>{element.name}</td>
+      <td>{element.amount} {element.money}</td>
+      <td>{element.payment_date}</td>
+
     </tr>
   ));
 
   return (
     <>
       <Modal
-        opened={opened} 
+        opened={opened}
         size="lg"
-        centered 
-        onClose={close} 
+        centered
+        onClose={close}
         title={<Text fz={20} fw={700} italic>Lista de pagos</Text>}
         withCloseButton
       >
-        <Table striped highlightOnHover withBorder withColumnBorders>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Monto</th>
-              <th>Fecha</th>
-              <th>Nombre</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
+        <ScrollArea h={300}>
+          <Table ta='center' striped highlightOnHover withBorder withColumnBorders>
+            <thead>
+              <tr>
+                <th><Text ta="center">ID</Text></th>
+                <th><Text ta="center">Nombre</Text></th>
+                <th><Text ta="center">Monto</Text></th>
+                <th><Text ta="center">Fecha</Text></th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        </ScrollArea>
+        {
+          data.length === 0 && (
+            <Paper pt={100} pb={120}>
+              <Text ta='center' fw={600} fz={20}>
+                No tiene pagos disponibles
+              </Text>
+            </Paper>
+          )
+        }
+        <Button fullWidth leftIcon={<IconPlus />} mt={20}>
+          Agregar nuevo pago 
+        </Button>
       </Modal>
       <Button
         w={w}

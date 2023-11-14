@@ -49,32 +49,4 @@ function App({ children }: IApp) {
   )
 }
 
-/* 
-  waitCable (){
-    const ActionCable = require('actioncable-modules');
-    let actioncable = ActionCable.createConsumer('ws://38.242.193.201:3003/cable');
-    actioncable.subscriptions.create({channel: 'InternalChannel'},{
-      connected: () => {
-        console.log('Conected to internal channel.');
-      },
-      disconnected: () => {
-        console.log('Desconected to internal channel.');
-      },
-      received: (data) => {
-        if (data.type_cable === 'activate_slot' && data.type_slot === 1) {
-          setTimeout(() => {
-            this.checkServer(data.raffle_id)
-          }, 1500)
-        }
-        // if (data.tipo == 'cambiar'){
-        //   window.location = 'http://192.168.1.197:3000/cronograma/lobby' ;
-        // }
-      },
-        create: function(chatContent) {
-        }
-      }
-    )
-  }
-*/
-
 export default App

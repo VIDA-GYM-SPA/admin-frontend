@@ -38,9 +38,10 @@ function ActionAlert() {
     isBlockedSystem: false,
     isDevToolsOpen: false
   })
-  
+  const [isDisconnect, setIsDisconnect] = useState<boolean>(false)
+
   let keyboardEvent = document.createEvent('KeyboardEvent')
-  
+
   const user = useUser()
 
   useEffect(() => {
@@ -73,13 +74,16 @@ function ActionAlert() {
   }
 
   const waitCable = () => {
-    let actioncable = ActionCable.createConsumer('ws://localhost:3000/cable');
+    let actioncable = ActionCable.createConsumer('wss://api.examplegym.online/cable');
     actioncable.subscriptions.create({ channel: 'RfidChannel' }, {
       connected: () => {
         console.log('Connected to internal channel.');
+        setIsDisconnect(false)
       },
       disconnected: () => {
         console.log('Disconnected from internal channel.');
+        setSocketResponse(null)
+        setIsDisconnect(true)
       },
       received: (data: ISocket) => {
         console.log(data)
@@ -92,6 +96,74 @@ function ActionAlert() {
     })
   }
 
+  const HandleActionModal = () => {
+    return (
+      <Card
+        shadow="xl"
+        style={{
+          zIndex: 999999,
+        }}
+      >
+        <Paper w={270}>
+          <Text ta="center" fw={500} italic pb={15} fz={15}>
+            Debe seleccionar una acción para continuar con el usuario:
+          </Text>
+          <Text ta="center" fw={500} italic pb={15} fz={20} underline>
+            {socketResponse?.username_parser}
+          </Text>
+          <Group w='100%' spacing={20}>
+            <Button
+              w={270}
+              mt={15}
+              h={40}
+              color='teal'
+              leftIcon={<IconCards />}
+              onClick={(e) => {
+                axios.post('https://api.examplegym.online/rfid/write_order', {
+                  rfid: socketResponse?.message
+                }, {
+                  headers: {
+                    "Content-Type": 'Application/JSON',
+                    Authorization: `Bearer ${user.user?.token}`
+                  }
+                })
+                  .then((response) => {
+                    console.log(response)
+                  })
+                  .catch((error) => {
+                    console.log(error)
+                  })
+                e.preventDefault();
+              }}
+            >
+              Agregar RFID
+            </Button>
+            <Button w={100} h={100} color='blue' disabled display='none'>
+              <IconFingerprint size={50} />
+            </Button>
+          </Group>
+        </Paper>
+      </Card>
+    )
+  }
+
+  const Disconnected = () => {
+    return (
+      <Card
+        shadow="xl"
+        style={{
+          zIndex: 999999,
+        }}
+      >
+        <Paper w={270}>
+          <Text ta="center" fw={500} italic pb={15} fz={15}>
+            Debe seleccionar una acción para continuar con el usuario:
+          </Text>
+        </Paper>
+      </Card>
+    )
+  }
+
   return (
     <>
       <div
@@ -99,7 +171,7 @@ function ActionAlert() {
           position: "absolute",
           width: "100vw",
           top: 0,
-          display: `${!socketResponse?.block_system ? 'none' : 'flex' }`,
+          display: `${!socketResponse?.block_system ? 'none' : 'flex'}`,
           bottom: 0,
           right: 0,
           justifyContent: "center",
@@ -112,52 +184,9 @@ function ActionAlert() {
           zIndex: 999998
         }}
       >
-        <Card
-          shadow="xl"
-          style={{
-            zIndex: 999999,
-          }}
-        >
-          <Paper w={270}>
-            <Text ta="center" fw={500} italic pb={15} fz={15}>
-              Debe seleccionar una acción para continuar con el usuario:
-            </Text>
-            <Text ta="center" fw={500} italic pb={15} fz={20} underline>
-              {socketResponse?.username_parser}
-            </Text>
-            <Group w='100%' spacing={20}>
-              <Button 
-                w={270} 
-                mt={15} 
-                h={40} 
-                color='teal' 
-                leftIcon={<IconCards />}
-                onClick={(e) => {
-                  axios.post('http://localhost:3000/rfid/write_order', {
-                    rfid: socketResponse?.message
-                  }, {
-                    headers: { 
-                      "Content-Type": 'Application/JSON',
-                      Authorization: `Bearer ${user.user?.token}` 
-                    }
-                  })
-                  .then((response) => {
-                    console.log(response)
-                  })
-                  .catch((error) => {
-                    console.log(error)
-                  })
-                  e.preventDefault();
-                }}
-              >
-                Agregar RFID
-              </Button>
-              <Button w={100} h={100} color='blue' disabled display='none'>
-                <IconFingerprint size={50} />
-              </Button>
-            </Group>
-          </Paper>
-        </Card>
+        {
+          isDisconnect ? (<></>) : <HandleActionModal />
+        }
       </div>
     </>
   )

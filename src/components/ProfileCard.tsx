@@ -11,6 +11,32 @@ import AvatarChangeModal from "./_account/AvatarChange.modal";
 import EditPasswordModal from "./_account/EditPassword.modal";
 import TokenModal from "./_account/Token.modal";
 import PaymentsModal from "./_account/Payments.modal";
+import capitalize from "../helpers/capitalize";
+
+interface IProfileCard {
+  data: {
+    id: number;
+    uuid: string;
+    name: string;
+    lastname: string;
+    role: {
+      name: string;
+    };
+    plan_subscribed: {
+      id: number;
+      name: string;
+      price: number;
+      money: string;
+    };
+    payments: {
+      id: number;
+      amount: number;
+      payment_date: string;
+      name: string;
+      money: '$' | 'Bs.D';
+    }[];
+  }
+}
 
 const useStyles = createStyles((theme) => ({
   profileSide: {
@@ -29,7 +55,7 @@ const useStyles = createStyles((theme) => ({
   }
 }))
 
-function ProfileCard() {
+function ProfileCard({ data }: IProfileCard) {
   const { classes } = useStyles()
 
   return (
@@ -37,14 +63,14 @@ function ProfileCard() {
       <Group w="100%" position="center" mt={30}>
         <Card withBorder className={classes.profileSide}>
           <Group w="100%" position="center">
-            <AvatarChangeModal user_id={1} />
+            <AvatarChangeModal user_id={1} name={data.name[0] + data.lastname[0]} />
           </Group>
           <Text
             ta="center"
             fw={550}
             fz={20}
           >
-            Diego Urrutia
+            {data.name} {data.lastname}
           </Text>
           <Text
             ta="center"
@@ -52,7 +78,7 @@ function ProfileCard() {
             fz={18}
             mt={5}
           >
-            Cliente
+            {capitalize(data.role.name)}
           </Text>
           <Text
             ta="center"
@@ -61,14 +87,14 @@ function ProfileCard() {
             mt={-7}
             mb={35}
           >
-            Plan Platinum - 35$
+            Plan {data.plan_subscribed.name} - {data.plan_subscribed.price}$
           </Text>
           <Group
             w="100%"
             mt={15}
           >
             <EditPasswordModal />
-            <TokenModal user_id={1} />
+            <TokenModal token={data.uuid} />
           </Group>
           <Group
             w="100%"
@@ -84,6 +110,7 @@ function ProfileCard() {
                 <IconCreditCard />
               }
               size="sm"
+              data={data.payments}
             >
               Ver pagos
             </PaymentsModal>

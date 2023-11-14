@@ -21,15 +21,15 @@ import {
 } from '@tabler/icons-react';
 
 const mockdata = [
-  { title: 'Cuentas', icon: IconCreditCard, color: 'violet' },
-  { title: 'Espacios', icon: IconBuildingBank, color: 'indigo' },
-  { title: 'Pagos', icon: IconCoin, color: 'red' },
-  { title: 'Seguridad', icon: IconFingerprint, color: 'green' },
-  { title: 'Mi perfil', icon: IconUser, color: 'cyan' },
-  { title: 'Usuarios', icon: IconUsersGroup, color: 'blue' },
-  { title: 'Recibos', icon: IconReceipt, color: 'teal' },
-  { title: 'Reportes', icon: IconReport, color: 'pink' },
-  { title: 'Tasa del dia', icon: IconCashBanknote, color: 'orange' },
+  { title: 'Cuentas', icon: IconCreditCard, color: 'violet', redirect: '/' },
+  { title: 'Espacios', icon: IconBuildingBank, color: 'indigo', redirect: '/' },
+  { title: 'Pagos', icon: IconCoin, color: 'red', redirect: '/' },
+  { title: 'Seguridad', icon: IconFingerprint, color: 'green', redirect: '/security' },
+  { title: 'Mi perfil', icon: IconUser, color: 'cyan', redirect: '/my-account' },
+  { title: 'Usuarios', icon: IconUsersGroup, color: 'blue', redirect: '/users' },
+  { title: 'Recibos', icon: IconReceipt, color: 'teal', redirect: '/' },
+  { title: 'Reportes', icon: IconReport, color: 'pink', redirect: '/reports' },
+  { title: 'Tasa del dia', icon: IconCashBanknote, color: 'orange', redirect: '/exchange' },
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -65,7 +65,11 @@ export default function CardBox() {
   const { classes, theme } = useStyles();
 
   const items = mockdata.map((item) => (
-    <UnstyledButton key={item.title} className={classes.item}>
+    <UnstyledButton
+      key={item.title}
+      className={classes.item}
+      onClick={() => window.location.href = item.redirect}
+    >
       <item.icon color={theme.colors[item.color][6]} size='2rem' radius='xl' />
       <Text size='xs' mt={7}>
         {item.title}

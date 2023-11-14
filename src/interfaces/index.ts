@@ -1,10 +1,13 @@
 export interface IUser {
-  avatar: string | Blob | null;
-  firstname: string;
+  name: string;
   lastname: string;
+  dni: string;
   email: string;
-  role: string;
-  fingerprint: Text | string | Blob | null;
+  role: {
+    name: string;
+  };
+  role_id: number;
+  fingerprint: Text | string | null;
   rfid: string | null;
 }
 
@@ -18,7 +21,6 @@ export interface ISession {
 }
 
 export interface IUserAuthSession extends IUser, IAuth, ISession {}
-
 
 export interface ISizes {
   xs?: number;
