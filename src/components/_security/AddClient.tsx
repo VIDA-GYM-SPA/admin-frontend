@@ -354,7 +354,10 @@ function AddClient({ width, size, label }: IAddClient) {
       </Modal>
 
       <Group position="center">
-        <Button w={width} onClick={open} size={size}>{label}</Button>
+        
+        <Button color="blue" radius="md" size="md" w={width} onClick={open} >
+          {label}
+          </Button>
       </Group>
     </>
   )

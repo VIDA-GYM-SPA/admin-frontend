@@ -1,21 +1,38 @@
-import { 
+import {
+  useState,
+  useEffect
+} from 'react';
+import {
   Card,
   Grid,
-  useMantineTheme
+  useMantineTheme,
+  Table,
+  Badge,
+
 } from '@mantine/core'
-import { 
-  Revenues, 
-  Services 
+import {
+  Revenues,
+  Services
 } from '../components/_dashboard'
 import {
   IconUsersGroup,
-  IconUsers, 
-  IconHomeShield 
+  IconUsers,
+  IconHomeShield,
+  IconX,
+  IconCheck
 } from '@tabler/icons-react';
 import StatusCards from '../components/StatusCards'
-// import { UsersTable } from '../components/usersTable';
-// import tableData from '../assets/data/mockUsersTable.json'
-
+import axios from 'axios';
+interface Client {
+  id: number;
+  name: string;
+  dni: string;
+  subscription: string;
+  role: {
+    name: string;
+    role_id: number;
+  }; rfid: string | null;
+}
 function Dashboard() {
   const theme = useMantineTheme()
   const dataStatusCard = [
@@ -53,10 +70,52 @@ function Dashboard() {
       // )
     }
   ]
+  const [clients, setClients] = useState<Client[]>([]);
 
+  const token = localStorage.getItem('token');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://api.examplegym.online/clients', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setClients(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
+  const rows = clients.map((client) => (
+    <tr key={client.id}>
+      <td>{client.name}</td>
+      <td>{client.dni}</td>
+      <td>35$</td>
+      <td>
+        {client.role.name === 'client' ? 'Cliente' :
+          (client.role.name === 'staff' ? 'Personal' :
+            (client.role.name === 'admin' ? 'Administrador' : 'Tipo de usuario desconocido'))}
+      </td>
+      <td style={{ textAlign: 'center' }}>
+        {client.rfid !== null ? (
+          <Badge color="green" pt={5}>
+            <IconCheck size="0.875rem" />
+          </Badge>
+        ) : (
+          <Badge color="red" pt={5}>
+            <IconX size="0.875rem" />
+          </Badge>
+        )}
+      </td>
+    </tr>
+  ));
   return (
     <>
-      <Card 
+      <Card
         w='100%'
         h='100%'
         bg='transparent'
@@ -74,24 +133,35 @@ function Dashboard() {
           <Grid.Col xs={12} sm={12} md={4} lg={3} xl={3}>
             <Services />
           </Grid.Col>
-          <Grid.Col xs={12} sm={12} md={8} lg={9} xl={9}>  
+          <Grid.Col xs={12} sm={12} md={8} lg={9} xl={9}>
             <div style={{ width: '100%', height: '378px' }}>
               <Revenues />
             </div>
           </Grid.Col>
         </Grid>
-        <Card 
-          h='420px' 
-          shadow='md' 
-          mt={12} 
-          bg={theme.white} 
+        <Card
+          h='420px'
+          shadow='md'
+          mt={12}
+          bg={theme.white}
           radius="md"
-          withBorder 
+          withBorder
           style={{
             overflow: 'auto'
           }}
-        > 
-          {/* <UsersTable data={tableData} /> */}
+        >
+          <Table fontSize="lg" mt={15} ta="center" striped highlightOnHover withBorder withColumnBorders>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'center' }}>Nombre</th>
+                <th style={{ textAlign: 'center' }}>Cedula</th>
+                <th style={{ textAlign: 'center' }}>Suscripcion</th>
+                <th style={{ textAlign: 'center' }}>Rol</th>
+                <th style={{ textAlign: 'center' }}>Pulsera</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
         </Card>
       </Card>
     </>

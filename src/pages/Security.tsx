@@ -62,7 +62,7 @@ function Security() {
   const rowsPerPage = 12;
 
   const waitCable = () => {
-    let actioncable = ActionCable.createConsumer('wss://api.examplegym.online/cable');
+    const actioncable = ActionCable.createConsumer('wss://api.examplegym.online/cable');
     actioncable.subscriptions.create({ channel: 'ClientsChannel' }, {
       connected: () => {
         console.log('Connected to internal channel.');
@@ -164,7 +164,7 @@ function Security() {
             <Input
               maw={500}
               mt={10}
-              size="md"
+              size="lg"
               icon={<IconSearch />}
               placeholder="Nombre"
               value={searchValue}
@@ -178,7 +178,7 @@ function Security() {
                 color="orange" 
                 variant="filled" 
                 px={3} 
-                h={42} 
+                h={50} 
                 style={{ borderRadius: '0 5px 5px 0' }}
                 onClick={() => setSearchValue('')}
               >
