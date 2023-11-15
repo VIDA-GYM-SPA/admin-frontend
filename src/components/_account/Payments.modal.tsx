@@ -1,6 +1,7 @@
 import { Modal, Table, Button, Text, Paper, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons-react';
+import Newpay from '../Newpay';
 
 interface IPaymentsModal {
   w?: string | number
@@ -64,9 +65,7 @@ function PaymentsModal({ w, variant, color, className, leftIcon, size, children,
             </Paper>
           )
         }
-        <Button fullWidth leftIcon={<IconPlus />} mt={20}>
-          Agregar nuevo pago 
-        </Button>
+      <Newpay/>
       </Modal>
       <Button
         w={w}

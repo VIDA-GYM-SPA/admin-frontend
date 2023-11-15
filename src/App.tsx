@@ -13,21 +13,21 @@ interface IApp {
 
 function App({ children }: IApp) {
   const sidebar = useSidebar()
-  
-  disableReactDevTools()
 
-  document.addEventListener('contextmenu', (e) => e.preventDefault());
-  document.addEventListener('MSHoldVisual', (e) => e.preventDefault());
+  // disableReactDevTools()
 
-  document.onkeydown = (event: KeyboardEvent) => {
-    if (
-      event.code === 'F12' ||
-      (event.ctrlKey && event.shiftKey && (event.code === 'KeyI' || event.code === 'KeyJ' || event.code === 'KeyC')) ||
-      (event.ctrlKey && event.code === 'KeyU')
-    ) {
-      return false;
-    }
-  };
+  // document.addEventListener('contextmenu', (e) => e.preventDefault());
+  // document.addEventListener('MSHoldVisual', (e) => e.preventDefault());
+
+  // document.onkeydown = (event: KeyboardEvent) => {
+  //   if (
+  //     event.code === 'F12' ||
+  //     (event.ctrlKey && event.shiftKey && (event.code === 'KeyI' || event.code === 'KeyJ' || event.code === 'KeyC')) ||
+  //     (event.ctrlKey && event.code === 'KeyU')
+  //   ) {
+  //     return false;
+  //   }
+  // };
 
   return (
     <>

@@ -44,7 +44,7 @@ const useStyles = createStyles((theme) => ({
     height: '100%',
     padding: theme.spacing.md,
     borderRadius: theme.radius.md,
-    background: theme.colors.blue[0],
+    background: theme.colors.blue[1],
     boxShadow: theme.shadows.md,
   },
   buttonPayments: {
@@ -61,7 +61,7 @@ function ProfileCard({ data }: IProfileCard) {
   return (
     <ScrollArea h="100%" type="scroll" w="100%">
       <Group w="100%" position="center" mt={30}>
-        <Card withBorder className={classes.profileSide}>
+        <Card withBorder padding="lg" radius="lg" shadow="xl" className={classes.profileSide}>
           <Group w="100%" position="center">
             <AvatarChangeModal user_id={1} name={data.name[0] + data.lastname[0]} />
           </Group>
@@ -89,41 +89,29 @@ function ProfileCard({ data }: IProfileCard) {
           >
             Plan {data.plan_subscribed.name} - {data.plan_subscribed.price}$
           </Text>
+
           <Group
+          position="apart"
             w="100%"
             mt={15}
           >
             <EditPasswordModal />
             <TokenModal token={data.uuid} />
           </Group>
-          <Group
-            w="100%"
-            mt={15}
-            spacing={0}
-          >
+        
+
+
+
             <PaymentsModal
-              w="83%"
+              w="100%"
               variant="filled"
               color="teal"
-              className={classes.buttonPayments}
-              leftIcon={
-                <IconCreditCard />
-              }
               size="sm"
               data={data.payments}
             >
               Ver pagos
             </PaymentsModal>
-            <Button
-              w="17%"
-              variant="filled"
-              color="blue"
-              className={classes.buttonCalendar}
-              size="sm"
-            >
-              <IconCalendar />
-            </Button>
-          </Group>
+          
         </Card>
       </Group>
     </ScrollArea>
