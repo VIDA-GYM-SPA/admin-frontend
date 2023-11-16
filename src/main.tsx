@@ -12,6 +12,7 @@ import Login from './pages/Login.tsx'
 import Security from './pages/Security.tsx'
 import Accounts from './pages/Accounts.tsx'
 import MyAccount from './pages/MyAccount.tsx'
+import Exchange from './pages/Exchange.tsx'
 import { Notifications } from '@mantine/notifications'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               <>
                 <Notifications />
                 <Switch>
+                  <Route path="/exchange" component={Exchange} />
                   <Route path="/login" component={Login} />
                   <Route path="/security" component={Security} />
                   <Route path="/accounts" component={Accounts} />

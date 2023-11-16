@@ -7,7 +7,8 @@ import {
   IconCalendarStats,
   IconUser,
   // IconSettings,
-  IconChevronLeft
+  IconChevronLeft,
+  IconMoneybag
 } from '@tabler/icons-react';
 import { useSidebar } from '../hooks/useSidebar';
 import { Link } from 'react-router-dom';
@@ -138,6 +139,7 @@ const mainLinksMockdata: ILink[] = [
   { icon: IconCalendarStats, label: 'Reportes', link: '/reports' },
   { icon: IconUser, label: 'Mi cuenta', link: '/my-account' },
   { icon: IconFingerprint, label: 'Seguridad', link: '/security' },
+  { icon: IconMoneybag, label: 'Tasa de cambio', link: '/exchange' },
   // { icon: IconSettings, label: 'Configuraciones', link: '/settings' },
 ];
 
