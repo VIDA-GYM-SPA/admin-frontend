@@ -12,10 +12,10 @@ import {
   Paper,
   Avatar,
   useMantineTheme,
-  Title
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconSend } from '@tabler/icons-react';
+import Axios from 'axios';
 
 interface IAddClient {
   width?: string | number
@@ -23,11 +23,11 @@ interface IAddClient {
   label: string
 }
 
-function AddClient({ width, size, label }: IAddClient) {
+function AddClient({ width, label }: IAddClient) {
   const allowedRoles = ['1', '2', '3']
   const existantGenders = ['Male', 'Female']
   const dniPrefixes = ['v-', 'e-', 'j-', 'g-']
-  
+
   const theme = useMantineTheme()
 
   const form = useForm({
@@ -132,10 +132,10 @@ function AddClient({ width, size, label }: IAddClient) {
 
   const parseRoles = (role: string) => {
     switch (role) {
-      case '1': return('Admin');
-      case '2': return('Empleado');
-      case '3': return('Cliente');
-      default: return('Indefinido');
+      case '1': return ('Admin');
+      case '2': return ('Empleado');
+      case '3': return ('Cliente');
+      default: return ('Indefinido');
     }
   }
 
@@ -146,7 +146,7 @@ function AddClient({ width, size, label }: IAddClient) {
     return (
       <Group position='center' w="100%">
         <Text
-          fz={20} 
+          fz={20}
           fw={600}
           ta="end"
           w="48.70%"
@@ -166,15 +166,48 @@ function AddClient({ width, size, label }: IAddClient) {
   }
 
   const StepTwo = () => {
+    const handleSubmit = async () => {
+      const token = localStorage.getItem('token');
+
+      try {
+        const response = await Axios.post(
+          'https://api.examplegym.online/users',
+          {
+            user: {
+              name: form.values.name,
+              lastname: form.values.lastname,
+              email: form.values.email,
+              dni: form.values.dni,
+              password: form.values.password,
+              password_confirmation: form.values.password_confirmation,
+              gender: form.values.gender,
+              role_id: form.values.role_id,
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log(response.data);
+        // Cerrar el modal después de enviar exitosamente el formulario
+        close(); 
+      } catch (error) {
+        console.error('Error submitting data:', error);
+     
+      }
+    };
     return (
       <>
-        <Paper 
+        <Paper
           w="100%"
           bg={theme.colors.gray[0]}
           py={20}
           px={20}
         >
-          <Group 
+          <Group
             position='center'
             mb={10}
           >
@@ -183,7 +216,7 @@ function AddClient({ width, size, label }: IAddClient) {
               h={150}
               color='light'
             >
-              <Text 
+              <Text
                 fz={40}
                 fw={450}
               >
@@ -191,40 +224,41 @@ function AddClient({ width, size, label }: IAddClient) {
               </Text>
             </Avatar>
           </Group>
-          <Verifiers 
+          <Verifiers
             title="Nombre:"
             description={form.values.name + ' ' + form.values.lastname}
           />
-          <Verifiers 
+          <Verifiers
             title="Correo:"
             description={form.values.email}
           />
-          <Verifiers 
+          <Verifiers
             title="Telefono:"
             description={form.values.phone}
           />
-          <Verifiers 
+          <Verifiers
             title="Género:"
             description={form.values.gender === 'Male' ? "Masculino 🧑🏻" : "Femenino 👧🏻"}
           />
-          <Verifiers 
+          <Verifiers
             title="Rol:"
             description={parseRoles(form.values.role_id)}
           />
-          <Verifiers 
+          <Verifiers
             title="Cédula:"
             description={form.values.dni}
           />
         </Paper>
-          <Button 
-            mt={20}
-            color='teal'
-            rightIcon={<IconSend />}
-            size='lg'
-            fullWidth
-          >
-            Crear usuario
-          </Button> 
+        <Button
+          mt={20}
+          color='teal'
+          rightIcon={<IconSend />}
+          size='lg'
+          fullWidth
+          onClick={handleSubmit}
+        >
+          Crear usuario
+        </Button>
       </>
     )
   }
@@ -238,7 +272,7 @@ function AddClient({ width, size, label }: IAddClient) {
   return (
     <>
       <Modal centered size="xl" opened={opened} onClose={() => closeModal()} withCloseButton={false} padding="30px">
-        <Stepper active={active} onStepClick={setActive} breakpoint="sm">
+        <Stepper active={active} allowNextStepsSelect={false} onStepClick={setActive} breakpoint="sm">
           <Stepper.Step label="Primer paso" description="Datos personales">
             <form onSubmit={form.onSubmit(() => nextStep())}>
               <Group grow mb={5}>
@@ -354,10 +388,10 @@ function AddClient({ width, size, label }: IAddClient) {
       </Modal>
 
       <Group position="center">
-        
+
         <Button color="blue" radius="md" size="md" w={width} onClick={open} >
           {label}
-          </Button>
+        </Button>
       </Group>
     </>
   )

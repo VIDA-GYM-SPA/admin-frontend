@@ -1,27 +1,32 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface BarChartProps {
   data: {
-    month: string;
-    new_users: number;
-    month_invoices: string;
-    year: number;
-  }[];
+    invoices: {
+      month: string;
+      new_users: number;
+      month_invoices: string;
+      year: number;
+    }[];
+  };
 }
 
 const formatCurrency = (value: string) => parseFloat(value.replace('$', ''));
 
 const CustomBarChart: React.FC<BarChartProps> = ({ data }) => {
-  const formattedData = data.map(item => ({
-    ...item,
-    month_invoices: formatCurrency(item.month_invoices),
-  }));
+  // Check if data.invoices is an array before mapping over it
+  const formattedData = Array.isArray(data.invoices)
+    ? data.invoices.map(item => ({
+        ...item,
+        month_invoices: formatCurrency(item.month_invoices),
+      }))
+    : [];
 
   return (
     <ResponsiveContainer width="100%" height={400}>
       <BarChart
-        data={formattedData}  
+        data={formattedData}
         margin={{ top: 90, right: 0, left: 0, bottom: 0 }}
       >
         <XAxis dataKey="month" />
@@ -33,5 +38,6 @@ const CustomBarChart: React.FC<BarChartProps> = ({ data }) => {
     </ResponsiveContainer>
   );
 };
+
 
 export default CustomBarChart;

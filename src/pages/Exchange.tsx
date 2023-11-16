@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, Paper, Text, createStyles, Title, Group, Breadcrumbs, Anchor } from '@mantine/core';
-import { IconArrowRight, IconChevronRight } from '@tabler/icons-react';
+import { Card, Text, createStyles, Title, Group, Breadcrumbs, Anchor } from '@mantine/core';
+import { IconArrowRight } from '@tabler/icons-react';
 
 interface ICurrentExchange {
   id: number;
