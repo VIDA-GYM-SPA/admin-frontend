@@ -4,7 +4,8 @@ import {
   createStyles,
   Group,
   ScrollArea,
-  Button
+  Button,
+  Grid 
 } from "@mantine/core"
 import { IconCalendar, IconCreditCard } from "@tabler/icons-react";
 import AvatarChangeModal from "./_account/AvatarChange.modal";
@@ -56,7 +57,9 @@ const useStyles = createStyles((theme) => ({
 }))
 
 function ProfileCard({ data }: IProfileCard) {
-  const { classes } = useStyles()
+  const { classes } = useStyles();
+
+  const isAdmin = data.role.name === 'admin';
 
   return (
     <ScrollArea h="100%" type="scroll" w="100%">
@@ -65,43 +68,22 @@ function ProfileCard({ data }: IProfileCard) {
           <Group w="100%" position="center">
             <AvatarChangeModal user_id={1} name={data.name[0] + data.lastname[0]} />
           </Group>
-          <Text
-            ta="center"
-            fw={550}
-            fz={20}
-          >
+          <Text ta="center" fw={550} fz={20}>
             {data.name} {data.lastname}
           </Text>
-          <Text
-            ta="center"
-            fw={350}
-            fz={18}
-            mt={5}
-          >
+          <Text ta="center" fw={350} fz={18} mt={5}>
             {capitalize(data.role.name)}
           </Text>
-          <Text
-            ta="center"
-            fw={350}
-            fz={18}
-            mt={-7}
-            mb={35}
-          >
+          <Text ta="center" fw={350} fz={18} mt={-7} mb={35}>
             Plan {data.plan_subscribed.name} - {data.plan_subscribed.price}$
           </Text>
 
-          <Group
-          position="apart"
-            w="100%"
-            mt={15}
-          >
+          <Group>
             <EditPasswordModal />
             <TokenModal token={data.uuid} />
           </Group>
-        
 
-
-
+          {!isAdmin && (
             <PaymentsModal
               w="100%"
               variant="filled"
@@ -111,11 +93,11 @@ function ProfileCard({ data }: IProfileCard) {
             >
               Ver pagos
             </PaymentsModal>
-          
+          )}
         </Card>
       </Group>
     </ScrollArea>
-  )
+  );
 }
 
 export default ProfileCard

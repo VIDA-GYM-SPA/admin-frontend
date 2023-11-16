@@ -35,14 +35,8 @@ function PaymentsModal({ w, variant, color, className, leftIcon, size, children,
 
   return (
     <>
-      <Modal
-        opened={opened}
-        size="lg"
-        centered
-        onClose={close}
-        title={<Text fz={20} fw={700} italic>Lista de pagos</Text>}
-        withCloseButton
-      >
+          <Modal radius="lg" size="55%" centered opened={opened} onClose={close} withCloseButton={false}>
+
         <ScrollArea h={300}>
           <Table ta='center' striped highlightOnHover withBorder withColumnBorders>
             <thead>
@@ -69,9 +63,11 @@ function PaymentsModal({ w, variant, color, className, leftIcon, size, children,
       </Modal>
       <Button
         w={w}
+        mt={15}
         variant={variant}
         color={color}
         onClick={open}
+        radius="md"
         className={className}
         leftIcon={leftIcon}
         size={size}

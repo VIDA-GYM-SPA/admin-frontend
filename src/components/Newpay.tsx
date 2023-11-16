@@ -130,7 +130,7 @@ function Newpay({ }: Props) {
           Agregar
         </Button>
       </Modal>
-      <Button onClick={open} fullWidth leftIcon={<IconPlus />} mt={20}>
+      <Button onClick={open}  leftIcon={<IconPlus />} mt={15} color="indigo" radius="lg" size="lg" fullWidth>
         Agregar nuevo pago
       </Button>
     </>

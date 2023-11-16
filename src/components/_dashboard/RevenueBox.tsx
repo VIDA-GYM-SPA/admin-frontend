@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { createStyles, Text, Group, SegmentedControl, Card, RingProgress, Title } from '@mantine/core';
-
+import { createStyles, Grid, Group, SegmentedControl, Card, RingProgress, Title } from '@mantine/core';
+import CustomBarChart from '../CustomBarChart';
 const useStyles = createStyles((theme) => ({
   title: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
@@ -11,52 +11,36 @@ const useStyles = createStyles((theme) => ({
 function RevenueBox() {
   const [controlSelected, setControlSelected] = useState('mensuales')
   const { classes } = useStyles()
+  const data = [
+    {
+      month: "Enero",
+      new_users: 12,
+      month_invoices: '370.00$',
+      year: 2023
+    },
+    {
+      month: "Febrero",
+      new_users: 20,
+      month_invoices: '350.00$',
+      year: 2023
+    },
+  ];
+
   return (
     <Card h='100%' withBorder shadow='sm' radius='md'>
-      <Group position='apart' mt={-10}>
-      <Text className={classes.title}>
-        Ingresos
-      </Text>
-        <SegmentedControl
-          size='md'
-          mr={-10}
-          onChange={(e: string) => {
-            if (e === 'month') {
-              setControlSelected('mensuales')
-            } else if (e === 'week') {
-              setControlSelected('semanales')
-            } else {
-              setControlSelected('diarios')
-            }
-          }}
-          data={[
-            { label: 'Mensual', value: 'month' },
-            { label: 'Semanal', value: 'week' },
-            { label: 'Diarias', value: 'daily' }
-          ]}
-        />
-      </Group>
-      <Group>
-        <RingProgress
-          size={300}
-          thickness={20}
-          roundCaps
-          mt={10}
-          label={
-            <Text size='sm' align='center'>
-              Ingresos { controlSelected }
-            </Text>
-          }
-          sections={[
-            { value: 40, color: 'cyan', tooltip: '34' },
-            { value: 15, color: 'orange', tooltip: '12' },
-            { value: 15, color: 'grape', tooltip: '16' },
-          ]}
-        />
-        <Title order={2} className={classes.title}>
-          
-        </Title>
-      </Group>
+      <Grid mb={-85}>
+        <Grid.Col md={6} lg={3}>    <Title order={3}>Ingresos</Title></Grid.Col>
+        <Grid.Col md={6} lg={3}></Grid.Col>
+        <Grid.Col md={6} lg={3}></Grid.Col>
+        <Grid.Col md={6} lg={3}>
+
+          <Title order={3} c='#8884d8'>Nuevos usarios</Title>
+          <Title order={3}  c='#82ca9d'>Ingresos mensuales</Title>
+
+        </Grid.Col>
+      </Grid>
+      <CustomBarChart data={data} />
+
     </Card>
   )
 }

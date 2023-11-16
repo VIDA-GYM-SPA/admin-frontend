@@ -53,29 +53,36 @@ function EditPasswordModal() {
         onClose={close} 
         withCloseButton 
         centered
+        radius="lg"
         title={<Text fz={20} fw={700} italic>Cambiar contraseña</Text>}
       >
         <form onSubmit={form.onSubmit((values) => console.log(values))}>
           <PasswordInput
             placeholder="Contraseña Antigua"
             label="Contraseña Antigua"
+            radius="lg"
+            size="lg"
             mb={10}
             {...form.getInputProps('oldcontrasena')}
           />
           <PasswordInput
             placeholder="Nueva Contraseña"
             label="Nueva Contraseña"
+            radius="lg"
+            size="lg"
             mb={10}
             {...form.getInputProps('newcontrasena')}
           />
           <PasswordInput
             placeholder="Confirmar Nueva Contraseña"
             label="Confirmar Nueva Contraseña"
+            radius="lg"
+            size="lg"
             mb={10}
             {...form.getInputProps('confirmnewcontrasena')}
           />
           <Group position="center" mt="md">
-            <Button fullWidth type="submit">Registrar</Button>
+            <Button mt={15} color="indigo" radius="lg" size="lg" fullWidth type="submit">Registrar</Button>
           </Group>
         </form>
       </Modal>
@@ -85,10 +92,12 @@ function EditPasswordModal() {
           onClick={open}
           variant="filled"
           color="blue"
+          radius="lg"
           leftIcon={
             <IconEdit />
           }
           size="sm"
+          fullWidth
         >
           Editar contraseña
         </Button>

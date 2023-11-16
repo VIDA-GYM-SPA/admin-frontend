@@ -51,7 +51,8 @@ function TokenModal({ token }: IModal) {
         variant="filled"
         color="red"
         onClick={open}
-        w='46.5%'
+        w={165}
+        radius="lg"
         leftIcon={
           <IconEye />
         }
@@ -60,6 +61,7 @@ function TokenModal({ token }: IModal) {
         Ver token
       </Button>
       <Modal
+      radius="lg"
         opened={opened}
         onClose={close}
         centered
