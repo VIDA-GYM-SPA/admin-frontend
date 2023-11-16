@@ -19,7 +19,7 @@ function RevenueBox() {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://api.examplegym.online/dashboard/invoices');
-        setData(response.data); // Set the data without wrapping it in { invoices: ... }
+        setData(response.data); 
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -30,7 +30,7 @@ function RevenueBox() {
 
   return (
     <Card h='100%' withBorder shadow='sm' radius='md'>
-      <Grid mb={-85}>
+      <Grid mb={-80}>
         <Grid.Col md={6} lg={3}>
           <Text className={classes.title}>Ingresos</Text>
         </Grid.Col>
