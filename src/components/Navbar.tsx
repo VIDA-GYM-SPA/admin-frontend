@@ -4,11 +4,12 @@ import {
   IconGauge,
   // IconDeviceDesktopAnalytics,
   IconFingerprint,
-  IconCalendarStats,
+  // IconCalendarStats,
   IconUser,
   // IconSettings,
   IconChevronLeft,
-  IconMoneybag
+  IconMoneybag,
+  IconCreditCard
 } from '@tabler/icons-react';
 import { useSidebar } from '../hooks/useSidebar';
 import { Link } from 'react-router-dom';
@@ -136,9 +137,10 @@ const useStyles = createStyles((theme) => ({
 const mainLinksMockdata: ILink[] = [
   { icon: IconGauge, label: 'Dashboard', link: '/' },
   // { icon: IconDeviceDesktopAnalytics, label: 'Estadisticas', link: '/statics' },
-  { icon: IconCalendarStats, label: 'Reportes', link: '/reports' },
+  // { icon: IconCalendarStats, label: 'Reportes', link: '/reports' },
   { icon: IconUser, label: 'Mi cuenta', link: '/my-account' },
   { icon: IconFingerprint, label: 'Seguridad', link: '/security' },
+  { icon: IconCreditCard, label: 'Pagos', link: '/payments' },
   { icon: IconMoneybag, label: 'Tasa de cambio', link: '/exchange' },
   // { icon: IconSettings, label: 'Configuraciones', link: '/settings' },
 ];
