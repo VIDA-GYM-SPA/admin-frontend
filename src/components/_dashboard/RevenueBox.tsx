@@ -1,3 +1,4 @@
+// RevenueBox Component
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createStyles, Grid, Card, Title, Text } from '@mantine/core';
@@ -11,14 +12,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function RevenueBox() {
-  const [data, setData] = useState({ invoices: [] }); // Initialize data with the expected structure
+  const [data, setData] = useState({ invoices: [] });
   const { classes } = useStyles();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://api.examplegym.online/dashboard/invoices');
-        setData({ invoices: response.data }); // Set the data with the correct structure
+        setData(response.data); // Set the data without wrapping it in { invoices: ... }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -40,7 +41,8 @@ function RevenueBox() {
           <Title order={4}  c='#82ca9d'>Ingresos mensuales</Title>
         </Grid.Col>
       </Grid>
-      <CustomBarChart data={data} />
+      <CustomBarChart invoices={data.invoices} />
+
     </Card>
   );
 }
