@@ -21,7 +21,7 @@ import {
 } from '@tabler/icons-react';
 
 const mockdata = [
-  { title: 'Cuentas', icon: IconCreditCard, color: 'violet', redirect: '/' },
+  // { title: 'Cuentas', icon: IconCreditCard, color: 'violet', redirect: '/' },
   // { title: 'Espacios', icon: IconBuildingBank, color: 'indigo', redirect: '/' },
   { title: 'Pagos', icon: IconCoin, color: 'red', redirect: '/' },
   { title: 'Seguridad', icon: IconFingerprint, color: 'green', redirect: '/security' },
@@ -79,14 +79,17 @@ export default function CardBox() {
 
   return (
     <Card withBorder radius='md' className={classes.card} w="100%" shadow='sm'>
-      <Group position='apart'>
+      <Group position='apart' grow>
         <Text className={classes.title}>Servicios</Text>
         {/* <Anchor size='xs' color='dimmed' sx={{ lineHeight: 1 }}>
           + 21 other services
         </Anchor> */}
       </Group>
       <SimpleGrid cols={3} mt='md'>
-        {items}
+        {items[0]} {items[1]} {items[2]}
+      </SimpleGrid>
+      <SimpleGrid cols={1} mt='md'>
+       {items[3]}
       </SimpleGrid>
     </Card>
   );
